@@ -24,7 +24,9 @@ end
 
 -- is release now
 if is_mode("release") then
-    set_symbols("hidden")
+    if is_plat("windows") then
+        set_symbols("hidden")
+    end
     set_optimize("fastest")
     set_strip("all")
 end
