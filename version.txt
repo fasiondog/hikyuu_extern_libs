@@ -1,4 +1,4 @@
-﻿sqlite-amalgamation-3240000
+﻿sqlite-amalgamation-3270100
 mysql-connector-c-6.1.11
-CMake-hdf5-1.10.2
+CMake-hdf5-1.10.4
 
