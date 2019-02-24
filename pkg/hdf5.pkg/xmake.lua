@@ -23,10 +23,10 @@ option("hdf5")
     add_defines("H5_BUILT_AS_DYNAMIC_LIB")
     
     -- add links for checking
-    add_links("hdf5")
-    add_links("hdf5_hl")
-    add_links("hdf5_cpp")
-    add_links("hdf5_hl_cpp")
+    add_links("hku_hdf5")
+    add_links("hku_hdf5_hl")
+    add_links("hku_hdf5_cpp")
+    add_links("hku_hdf5_hl_cpp")
 
     -- add c includes for checking
     --add_cincludes("H5Cpp.h")
