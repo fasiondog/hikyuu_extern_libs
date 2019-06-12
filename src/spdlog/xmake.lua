@@ -1,0 +1,5 @@
+target("spdlog")
+    set_kind("static")
+    add_files("spdlog.cpp")
+    add_headerfiles("(spdlog/**.h)")
+    add_defines("SPDLOG_COMPILED_LIB")

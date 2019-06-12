@@ -33,12 +33,9 @@ end
 
 -- for the windows platform (msvc)
 if is_plat("windows") then 
-
     -- add some defines only for windows
     add_defines("NOCRYPT", "NOGDI")
-
-    add_cxflags("-EHsc")
-    
+    add_cxflags("-EHsc", "/Zc:__cplusplus")
     if is_mode("release") then
         add_cxflags("-MD") 
     elseif is_mode("debug") then
@@ -50,3 +47,4 @@ end
 add_vectorexts("sse", "sse2", "sse3", "ssse3", "mmx", "neon", "avx", "avx2")
 
 add_subdirs("./src/sqlite3")
+add_subdirs("./src/spdlog")
