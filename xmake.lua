@@ -47,4 +47,3 @@ end
 add_vectorexts("sse", "sse2", "sse3", "ssse3", "mmx", "neon", "avx", "avx2")
 
 add_subdirs("./src/sqlite3")
-add_subdirs("./src/spdlog")
