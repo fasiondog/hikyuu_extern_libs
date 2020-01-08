@@ -52,13 +52,13 @@
 #define SZIP_PACKAGE_BUGREPORT "help@hdfgroup.org"
 
 /* Define to the full name of this package. */
-#define SZIP_PACKAGE_NAME "szip"
+#define SZIP_PACKAGE_NAME "SZIP"
 
 /* Define to the full name and version of this package. */
-#define SZIP_PACKAGE_STRING "szip 2.1"
+#define SZIP_PACKAGE_STRING "SZIP 2.1"
 
 /* Define to the one symbol short name of this package. */
-#define SZIP_PACKAGE_TARNAME "szip"
+#define SZIP_PACKAGE_TARNAME "SZIP"
 
 /* Define to the version of this package. */
 #define SZIP_PACKAGE_VERSION "2.1"
