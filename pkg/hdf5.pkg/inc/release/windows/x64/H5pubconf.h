@@ -267,6 +267,9 @@
 /* Define to 1 if you have the <mach/mach_time.h> header file. */
 /* #undef H5_HAVE_MACH_MACH_TIME_H */
 
+/* Define if the map API (H5M) should be compiled */
+/* #undef H5_HAVE_MAP_API */
+
 /* Define to 1 if you have the <memory.h> header file. */
 #define H5_HAVE_MEMORY_H 1
 
@@ -524,7 +527,7 @@
 #define H5_PACKAGE_NAME "HDF5"
 
 /* Define to the full name and version of this package. */
-#define H5_PACKAGE_STRING "HDF5 1.10.6"
+#define H5_PACKAGE_STRING "HDF5 1.12.0"
 
 /* Define to the one symbol short name of this package. */
 #define H5_PACKAGE_TARNAME "hdf5"
@@ -533,7 +536,7 @@
 #define H5_PACKAGE_URL "http://www.hdfgroup.org"
 
 /* Define to the version of this package. */
-#define H5_PACKAGE_VERSION "1.10.6"
+#define H5_PACKAGE_VERSION "1.12.0"
 
 /* Determine the maximum decimal precision in C */
 /* #undef H5_PAC_C_MAX_REAL_PRECISION */
@@ -712,7 +715,10 @@
 /* #undef H5_USE_18_API_DEFAULT */
 
 /* Define using v1.10 public API symbols by default */
-#define H5_USE_110_API_DEFAULT 1
+/* #undef H5_USE_110_API_DEFAULT */
+
+/* Define using v1.12 public API symbols by default */
+#define H5_USE_112_API_DEFAULT 1
 
 /* Define if a memory checking tool will be used on the library, to cause
    library to be very picky about memory operations and also disable the
@@ -720,7 +726,7 @@
 /* #undef H5_USING_MEMCHECKER */
 
 /* Version number of package */
-#define H5_VERSION "1.10.6"
+#define H5_VERSION "1.12.0"
 
 /* Data accuracy is prefered to speed during data conversions */
 #define H5_WANT_DATA_ACCURACY 1
