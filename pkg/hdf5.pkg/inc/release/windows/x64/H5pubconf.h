@@ -429,7 +429,7 @@
 /* #undef H5_HAVE_THREADSAFE */
 #else
 /* Define if we have thread safe support */
-/* #undef H5_HAVE_THREADSAFE */
+# define H5_HAVE_THREADSAFE 1
 #endif
 
 /* Define if timezone is a global variable */
@@ -460,7 +460,7 @@
 /* #undef H5_HAVE_WAITPID */
 
 /* Define to 1 if you have the 'InitOnceExecuteOnce' function. */
-/* #undef H5_HAVE_WIN_THREADS */
+#define H5_HAVE_WIN_THREADS 1
 
 /* Define if your system has window style path name. */
 #define H5_HAVE_WINDOW_PATH 1
