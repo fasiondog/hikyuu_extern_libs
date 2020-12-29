@@ -4,9 +4,9 @@
 General Information:
 -------------------
                    HDF5 Version: 1.12.0
-                  Configured on: 2020-09-12
+                  Configured on: 2020-12-27
                   Configured by: Visual Studio 16 2019
-                    Host system: Windows-10.0.19041
+                    Host system: Windows-10.0.19042
               Uname information: Windows
                        Byte sex: little-endian
              Installation point: C:/Program
@@ -27,13 +27,13 @@ Linking Options:
                      H5_LDFLAGS: 
                      AM_LDFLAGS: 
                 Extra libraries: 
-                       Archiver: 
+                       Archiver: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29333/bin/Hostx64/x64/lib.exe
                          Ranlib: 
 
 Languages:
 ----------
                               C: YES
-                     C Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe 19.27.29111.0
+                     C Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29333/bin/Hostx64/x64/cl.exe 19.28.29334.0
                        CPPFLAGS: 
                     H5_CPPFLAGS: 
                     AM_CPPFLAGS: 
@@ -52,7 +52,7 @@ Languages:
          Static Fortran Library: YES
 
                             C++: ON
-                   C++ Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.27.29110/bin/Hostx64/x64/cl.exe 19.27.29111.0
+                   C++ Compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29333/bin/Hostx64/x64/cl.exe 19.28.29334.0
                       C++ Flags:  
                    H5 C++ Flags: 
                    AM C++ Flags: 
@@ -70,7 +70,7 @@ Parallel Filtered Dataset Writes:
               High-level library: ON
                 Build HDF5 Tests: ON
                 Build HDF5 Tools: ON
-                    Threadsafety: OFF
+                    Threadsafety: ON
              Default API mapping: v112
   With deprecated public symbols: ON
           I/O filters (external):  DEFLATE DECODE ENCODE
