@@ -29,14 +29,6 @@ package("hikyuu")
         -- package:add("deps", "fmt", {system = false, configs = {header_only = true}})
         package:add("deps", "flatbuffers", {system = false})
         if not package:config("shared") then
-            if package:config("hdf5") then
-                if is_plat("windows") and is_mode("debug") then
-                    package:add("deps", "hdf5_D")
-                else
-                    package:add("deps", "hdf5", {system = false})
-                end
-            end
-
             if package:config("mysql") then
                 package:add("deps", "mysql", {system = false})
             end        
@@ -47,8 +39,15 @@ package("hikyuu")
 
             package:add("deps", "nng", {system = false, configs = {cxflags = "-fPIC"}})
             package:add("deps", "cpp-httplib", {system = false, configs = {zlib = true, ssl = true}})
+            package:add("deps", "zlib", {system = false})
         end       
-
+        if package:config("hdf5") then
+            if is_plat("windows") and is_mode("debug") then
+                package:add("deps", "hdf5_D")
+            else
+                package:add("deps", "hdf5", {system = false})
+            end
+        end
         package:add("defines", "SPDLOG_DISABLE_DEFAULT_LOGGER")
         package:add("defines", "LOG_ACTIVE_LEVEL=0", "USE_SPDLOG_LOGGER=1", "USE_SPDLOG_ASYNC_LOGGER=0")
         package:add("defines", "CHECK_ACCESS_BOUND=1")
