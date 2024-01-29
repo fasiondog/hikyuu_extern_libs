@@ -17,7 +17,7 @@ package("hikyuu")
     on_load("windows", "linux", "macosx", function (package)
         package:add("deps", "boost", {
             system=false, 
-            configs= {shared = false,
+            configs= {shared = is_plat("windows"),
                 multi = true,
                 date_time = true,
                 filesystem = true,
