@@ -28,19 +28,19 @@ package("hikyuu")
         package:add("deps", "spdlog", {system = false, configs = {header_only = true, fmt_external = true}})
         -- package:add("deps", "fmt", {system = false, configs = {header_only = true}})
         package:add("deps", "flatbuffers", {system = false})
-        if not package:config("shared") then
-            if package:config("mysql") then
-                package:add("deps", "mysql", {system = false})
-            end        
 
-            if package:config("sqlite") then
-                package:add("deps", "sqlite3", {system = false, configs = {shared = true, cxflags = "-fPIC"}})
-            end
+        if package:config("mysql") then
+            package:add("deps", "mysql", {system = false})
+        end        
 
-            package:add("deps", "nng", {system = false, configs = {cxflags = "-fPIC"}})
-            package:add("deps", "cpp-httplib", {system = false, configs = {zlib = true, ssl = true}})
-            package:add("deps", "zlib", {system = false})
-        end       
+        if package:config("sqlite") then
+            package:add("deps", "sqlite3", {system = false, configs = {shared = true, cxflags = "-fPIC"}})
+        end
+
+        package:add("deps", "nng", {system = false, configs = {cxflags = "-fPIC"}})
+        package:add("deps", "cpp-httplib", {system = false, configs = {zlib = true, ssl = true}})
+        package:add("deps", "zlib", {system = false})
+   
         if package:config("hdf5") then
             if is_plat("windows") and is_mode("debug") then
                 package:add("deps", "hdf5_D")
