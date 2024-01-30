@@ -38,6 +38,7 @@ package("hikyuu")
         end
 
         package:add("deps", "nng", {system = false, configs = {cxflags = "-fPIC"}})
+        package:add("deps", "nlohmann_json", {system = false})
         package:add("deps", "cpp-httplib", {system = false, configs = {zlib = true, ssl = true}})
         package:add("deps", "zlib", {system = false})
    
