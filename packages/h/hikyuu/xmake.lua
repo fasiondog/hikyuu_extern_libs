@@ -4,9 +4,9 @@ package("hikyuu")
     set_description("High Performance Quant Framework with C++/Python")
     set_license("MIT")
 
-    add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hikyuu-$(version).zip",
+    add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
              "https://gitee.com/fasiondog/hikyuu.git")
-    add_versions("1.3.2", "cbdc1a75426058e6b3395010c8bad45e448ceceaeef21f39749ef81498f1ea7d")
+    add_versions("1.3.3", "0fc1dcb827b99d4e38b124d2ce17eed4790b42a7313c4ec8f9fc03b4a335739c")
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
