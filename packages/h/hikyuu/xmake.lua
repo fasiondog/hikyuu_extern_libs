@@ -5,6 +5,8 @@ package("hikyuu")
     set_license("MIT")
 
     add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
+             "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
+             "https://github.com/fasiondog/hikyuu.git",
              "https://gitee.com/fasiondog/hikyuu.git")
     add_versions("1.3.3", "0fc1dcb827b99d4e38b124d2ce17eed4790b42a7313c4ec8f9fc03b4a335739c")
 
