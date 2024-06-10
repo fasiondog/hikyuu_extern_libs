@@ -8,7 +8,6 @@ package("hdf5")
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-win-x64.zip",
             "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-win-x64.zip")
         add_versions("1.12.2", "388d455c917b153f3410e8ca0c857ee37a575d859a70ecb6e16d4fb43b1d201c")
-        add_versions("1.14.3", "7868e4eeb48d8b83318b50990027bfedeacec73871d861832a7ea3eabdf89a2d")
     elseif is_plat("linux") and is_arch("x86_64") then
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-x64.zip",
             "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-x64.zip")
