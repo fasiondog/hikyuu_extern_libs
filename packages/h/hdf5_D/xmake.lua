@@ -8,7 +8,7 @@ package("hdf5_d")
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5_D-$(version)-win-x64.zip",
             "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5_D-$(version)-win-x64.zip")
         add_versions("1.12.2", "6ea3ab5a4b0bb0f48eaef28cfe747ac5c072c06519a4888c1a59cfaf75399049")
-        add_versions("1.14.3", "d62fde2c4b2c5d1cde049d6b2d4a15b341a3e13d3550903884decc48254c0b59")
+        add_versions("1.13.3", "da357b755c5193f9a132f21d8d0b3973b0027052575f47d8c25ed0376899b622")
     end
 
     on_load("windows", function (package)
