@@ -10,7 +10,7 @@ package("hku_utils")
     --add_versions("1.0.0", "cda2c7e7897140e5bbcc537cf11d9a2ab49d5b88088be5b95715fae121009b78")
 
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
-    for _, name in ipairs({"spend_time", "sqlite", "sqlcipher", "mysql", "ini_parser", "sql_trace"}) do
+    for _, name in ipairs({"datetime", "spend_time", "sqlite", "sqlcipher", "mysql", "ini_parser", "sql_trace"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = (name == "datetime"), type = "boolean"})
     end
 
@@ -62,10 +62,10 @@ package("hku_utils")
             package:add("defines", "HKU_CLOSE_SPEND_TIME=0")
         end   
 
-        -- if package:config("datetime") then
-        --     package:add("defines", "HKU_SUPPORT_DATETIME")
-        --     package:add("links", "boost_system", "boost_date_time", "hku_utils")
-        -- end
+        if package:config("datetime") then
+            package:add("defines", "HKU_SUPPORT_DATETIME")
+            package:add("links", "boost_system", "boost_date_time", "hku_utils")
+        end
 
         if package:config("sql_trace") then
             package:add("defines", "HKU_SQL_TRACE")
@@ -79,7 +79,7 @@ package("hku_utils")
         end
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
-        for _, name in ipairs({"spend_time", "sqlcipher", "sqlite", "mysql", "ini_parser", "sql_trace"}) do
+        for _, name in ipairs({"datetime", "spend_time", "sqlcipher", "sqlite", "mysql", "ini_parser", "sql_trace"}) do
             configs[name] = package:config(name)
         end
 
