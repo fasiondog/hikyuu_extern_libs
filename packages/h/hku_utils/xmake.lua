@@ -9,6 +9,7 @@ package("hku_utils")
              "https://gitee.com/fasiondog/hku_utils.git")    
     --add_versions("1.0.0", "cda2c7e7897140e5bbcc537cf11d9a2ab49d5b88088be5b95715fae121009b78")
 
+    add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "sqlcipher", "mysql", "ini_parser", "sql_trace"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = (name == "datetime"), type = "boolean"})
@@ -41,6 +42,10 @@ package("hku_utils")
         if package:is_plat("windows") then
             package:add("defines", "NOMINMAX")
         end
+
+        local name = package:config("log_name")
+        package:add("defines", 'HKU_DEFAULT_LOG_NAME="' .. name .. '"')
+
         local level = package:config("log_level")
         if level == "trace" then
             package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=0")
@@ -77,6 +82,7 @@ package("hku_utils")
         if package:config("shared") then
             configs.kind = "shared"
         end
+        table.insert(configs, "--log_name=" .. package:config("log_name"))
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
         for _, name in ipairs({"datetime", "spend_time", "sqlcipher", "sqlite", "mysql", "ini_parser", "sql_trace"}) do
