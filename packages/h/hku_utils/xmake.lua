@@ -3,11 +3,10 @@ package("hku_utils")
     set_homepage("http://192.168.100.203:7990/bitbucket/scm/hug_cpp/hku_utils.git")
     set_description("C++ Tools Library of Yihua.")
 
-    add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hku_utils-$(version).zip",
-             "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hku_utils-$(version).zip",
+    add_urls("https://github.com/fasiondog/hku_utils/archive/$(version).zip",
              "https://github.com/fasiondog/hku_utils.git",
              "https://gitee.com/fasiondog/hku_utils.git")    
-    --add_versions("1.0.0", "cda2c7e7897140e5bbcc537cf11d9a2ab49d5b88088be5b95715fae121009b78")
+    add_versions("1.0.0", "9b23282c0a76a63138e95615ff0e10fa006df4783848519f8b4471f5fcb3b1b5")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
