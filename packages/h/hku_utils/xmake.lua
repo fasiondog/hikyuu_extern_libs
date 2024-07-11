@@ -6,7 +6,7 @@ package("hku_utils")
     add_urls("https://github.com/fasiondog/hku_utils/archive/$(version).zip",
              "https://github.com/fasiondog/hku_utils.git",
              "https://gitee.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.0", "9b23282c0a76a63138e95615ff0e10fa006df4783848519f8b4471f5fcb3b1b5")
+    add_versions("1.0.0", "dff68a13bd1aef690949f4183a4a37ddd0ad18f7febee7393c1ce0c37448b128")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
@@ -14,9 +14,19 @@ package("hku_utils")
         add_configs(name, {description = "Enable the " .. name .. " module.", default = (name == "datetime"), type = "boolean"})
     end
 
-    add_deps("fmt", "yas", "boost")
-
     on_load(function(package)
+        package:add("deps", "boost", {
+            configs= {shared = package:is_plat("windows"),
+                multi = true,
+                date_time = true,
+                filesystem = false,
+                serialization = true,
+                system = false,
+                python = false,}})
+
+        package:add("deps", "fmt", "yas")
+        package:add("deps", "spdlog", {configs={header_only = true, fmt_external = true}})
+    
         if package:config("mysql") then
             package:add("deps", "mysql")
         end

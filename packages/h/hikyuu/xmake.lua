@@ -23,7 +23,6 @@ package("hikyuu")
 
     on_load("windows", "linux", "macosx", function (package)
         package:add("deps", "boost", {
-            system=false, 
             configs= {shared = package:is_plat("windows"),
                 multi = true,
                 date_time = true,
@@ -32,8 +31,8 @@ package("hikyuu")
                 system = false,
                 python = false,}})
 
-        package:add("deps", "spdlog", {system = false, configs = {header_only = true, fmt_external = true}})
-        -- package:add("deps", "fmt", {system = false, configs = {header_only = true}})
+        package:add("deps", "fmt")
+        package:add("deps", "spdlog", {configs = {header_only = true, fmt_external = true}})
         if package:is_plat("windows") then
             if is_mode("release") then
                 package:add("deps", "flatbuffers", {system = false, configs={runtimes="MD"}})
@@ -45,23 +44,23 @@ package("hikyuu")
         end
 
         if package:config("mysql") then
-            package:add("deps", "mysql", {system = false})
+            package:add("deps", "mysql")
         end
 
         if package:config("sqlite") then
-            package:add("deps", "sqlite3", {system = false, configs = {shared = true, cxflags = "-fPIC"}})
+            package:add("deps", "sqlite3", {configs = {shared = true, cxflags = "-fPIC"}})
         end
 
-        package:add("deps", "nng", {system = false, configs = {cxflags = "-fPIC"}})
-        package:add("deps", "nlohmann_json", {system = false})
-        package:add("deps", "cpp-httplib", {system = false, configs = {zlib = true, ssl = true}})
-        package:add("deps", "zlib", {system = false})
+        package:add("deps", "nng", {configs = {cxflags = "-fPIC"}})
+        package:add("deps", "nlohmann_json")
+        package:add("deps", "cpp-httplib", {configs = {zlib = true, ssl = true}})
+        package:add("deps", "zlib")
    
         if package:config("hdf5") then
             if is_plat("windows") and is_mode("debug") then
                 package:add("deps", "hdf5_D")
             else
-                package:add("deps", "hdf5", {system = false})
+                package:add("deps", "hdf5")
             end
         end
 
