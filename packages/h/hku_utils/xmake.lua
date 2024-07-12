@@ -6,7 +6,7 @@ package("hku_utils")
     add_urls("https://github.com/fasiondog/hku_utils/archive/$(version).zip",
              "https://github.com/fasiondog/hku_utils.git",
              "https://gitee.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.0", "dff68a13bd1aef690949f4183a4a37ddd0ad18f7febee7393c1ce0c37448b128")
+    add_versions("1.0.0", "1a531b37f1e11fd9a1959a62eed6d0efc14274c5f0bc4c54d1c6b05f2bd2aec8")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
@@ -17,6 +17,7 @@ package("hku_utils")
     on_load(function(package)
         package:add("deps", "boost", {
             configs= {shared = package:is_plat("windows"),
+                runtimes = package:runtimes(),
                 multi = true,
                 date_time = true,
                 filesystem = false,

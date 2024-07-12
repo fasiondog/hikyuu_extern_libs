@@ -8,6 +8,7 @@ package("pybind11")
     add_urls("https://github.com/pybind/pybind11/archive/$(version).zip",
              "https://github.com/pybind/pybind11.git")
     add_versions("v2.11.1", "b011a730c8845bfc265f0f81ee4e5e9e1d354df390836d2a25880e123d021f89")
+    add_versions("v2.13.1", "a3c9ea1225cb731b257f2759a0c12164db8409c207ea5cf851d4b95679dda072")             
 
     on_install(function (package)
         os.cp("include", package:installdir())

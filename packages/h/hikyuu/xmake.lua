@@ -24,6 +24,7 @@ package("hikyuu")
     on_load("windows", "linux", "macosx", function (package)
         package:add("deps", "boost", {
             configs= {shared = package:is_plat("windows"),
+                runtimes = package:runtimes(),
                 multi = true,
                 date_time = true,
                 filesystem = false,
@@ -33,6 +34,7 @@ package("hikyuu")
 
         package:add("deps", "fmt")
         package:add("deps", "spdlog", {configs = {header_only = true, fmt_external = true}})
+        -- package:add("deps", "flatbuffers", {configs={runtimes=package:runtimes()}})
         if package:is_plat("windows") then
             if is_mode("release") then
                 package:add("deps", "flatbuffers", {system = false, configs={runtimes="MD"}})
@@ -41,7 +43,7 @@ package("hikyuu")
             end
         else
             package:add("deps", "flatbuffers", {system = false})
-        end
+        end        
 
         if package:config("mysql") then
             package:add("deps", "mysql")
