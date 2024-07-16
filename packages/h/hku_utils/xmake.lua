@@ -6,12 +6,15 @@ package("hku_utils")
     add_urls("https://github.com/fasiondog/hku_utils/archive/$(version).zip",
              "https://github.com/fasiondog/hku_utils.git",
              "https://gitee.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.0", "1a531b37f1e11fd9a1959a62eed6d0efc14274c5f0bc4c54d1c6b05f2bd2aec8")
+    add_versions("1.0.0", "73f584f8c3188e21bb97058488ac8b31ef456abf3ccad763f32aa3d51b18af0a")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
-    for _, name in ipairs({"datetime", "spend_time", "sqlite", "sqlcipher", "mysql", "ini_parser", "sql_trace"}) do
-        add_configs(name, {description = "Enable the " .. name .. " module.", default = (name == "datetime"), type = "boolean"})
+    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser"}) do
+        add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
+    end
+    for _, name in ipairs({"mysql", "sqlcipher", "sql_trace", "stacktrace"}) do
+        add_configs(name, {description = "Enable the " .. name .. " module.", default = false, type = "boolean"})
     end
 
     on_load(function(package)
@@ -19,9 +22,9 @@ package("hku_utils")
             configs= {shared = package:is_plat("windows"),
                 runtimes = package:runtimes(),
                 multi = true,
-                date_time = true,
+                date_time = package:config("datetime"),
                 filesystem = false,
-                serialization = true,
+                serialization = false,
                 system = false,
                 python = false,}})
 
@@ -49,42 +52,6 @@ package("hku_utils")
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
         end
-        if package:is_plat("windows") then
-            package:add("defines", "NOMINMAX")
-        end
-
-        local name = package:config("log_name")
-        package:add("defines", 'HKU_DEFAULT_LOG_NAME="' .. name .. '"')
-
-        local level = package:config("log_level")
-        if level == "trace" then
-            package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=0")
-        elseif level == "debug" then
-            package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=1")
-        elseif level == "info" then
-            package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=2")
-        elseif level == "warn" then
-            package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=3")
-        elseif level == "error" then
-            package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=4")
-        elseif level == "fatal" then
-            package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=5")
-        else
-            package:add("defines", "HKU_LOGGER_ACTIVE_LEVEL=6")
-        end
-
-        if package:config("spend_time") then
-            package:add("defines", "HKU_CLOSE_SPEND_TIME=0")
-        end   
-
-        if package:config("datetime") then
-            package:add("defines", "HKU_SUPPORT_DATETIME")
-            package:add("links", "boost_system", "boost_date_time", "hku_utils")
-        end
-
-        if package:config("sql_trace") then
-            package:add("defines", "HKU_SQL_TRACE")
-        end
     end)
 
     on_install(function (package)
@@ -95,9 +62,22 @@ package("hku_utils")
         table.insert(configs, "--log_name=" .. package:config("log_name"))
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
-        for _, name in ipairs({"datetime", "spend_time", "sqlcipher", "sqlite", "mysql", "ini_parser", "sql_trace"}) do
+        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "mysql", "sqlcipher", "sql_trace", "stacktrace"}) do
             configs[name] = package:config(name)
         end
 
         import("package.tools.xmake").install(package, configs)
     end)
+
+    on_test("windows", "linux", "macosx", function (package)
+        assert(package:check_cxxsnippets({
+            test = [[
+            #include <hikyuu/utilities/Log.h>
+            using namespace hku;
+            void test() {
+                HKU_INFO("test");
+            }
+            ]]},
+            {configs = {languages = "c++17"}
+        }))
+    end) 
