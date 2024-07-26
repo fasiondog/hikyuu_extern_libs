@@ -28,7 +28,8 @@ package("hku_utils")
                 system = false,
                 python = false,}})
 
-        package:add("deps", "fmt", "yas")
+        package:add("deps", "yas")
+        package:add("deps", "fmt", {configs={header_only = true}})
         package:add("deps", "spdlog", {configs={header_only = true, fmt_external = true}})
     
         if package:config("mysql") then
