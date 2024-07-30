@@ -5,11 +5,11 @@ package("hku_utils")
 
     add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).zip",
              "https://github.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.1", "7377d9a94c50de8061e0d9db9da062f74071bc1b2f1a3d04cdb9a56103ba6f54")
+    add_versions("1.0.2", "996e903aa6f2e18e03c44d78e6e0b46f12979bb035e6519a567c654db3148fb5")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
-    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client"}) do
+    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
     for _, name in ipairs({"async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip"}) do
@@ -49,7 +49,7 @@ package("hku_utils")
             end
         end
 
-        if package:config("http_client") then
+        if package:config("http_client") or package:config("node") then
             package:add("deps", "nlohmann_json")
             if package:config("shared") then
                 package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl"), cxflags = "-fPIC"}})
@@ -74,7 +74,7 @@ package("hku_utils")
         table.insert(configs, "--log_name=" .. package:config("log_name"))
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
-        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client",  
+        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node",  
                                "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
                                "http_client_ssl", "http_client_zip"}) do
             configs[name] = package:config(name)
