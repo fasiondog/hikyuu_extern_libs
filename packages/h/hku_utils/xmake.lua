@@ -3,17 +3,16 @@ package("hku_utils")
     set_homepage("http://192.168.100.203:7990/bitbucket/scm/hug_cpp/hku_utils.git")
     set_description("C++ Tools Library of Yihua.")
 
-    add_urls("https://github.com/fasiondog/hku_utils/archive/$(version).zip",
-             "https://github.com/fasiondog/hku_utils.git",
-             "https://gitee.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.0", "b33ebd71f7d10f19113015b7bcb05ef1e950b2f3d8049eead285e4764eae7bd1")
+    add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).zip",
+             "https://github.com/fasiondog/hku_utils.git")    
+    add_versions("1.0.1", "7377d9a94c50de8061e0d9db9da062f74071bc1b2f1a3d04cdb9a56103ba6f54")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
-    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser"}) do
+    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
-    for _, name in ipairs({"mo", "mysql", "sqlcipher", "sql_trace", "stacktrace"}) do
+    for _, name in ipairs({"async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = false, type = "boolean"})
     end
 
@@ -50,6 +49,18 @@ package("hku_utils")
             end
         end
 
+        if package:config("http_client") then
+            package:add("deps", "nlohmann_json")
+            if package:config("shared") then
+                package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl"), cxflags = "-fPIC"}})
+            else
+                package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl")}})
+            end
+            if package:config("http_client_zip") then
+                package:add("deps", "gzip-hpp")
+            end
+        end
+
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
         end
@@ -63,7 +74,9 @@ package("hku_utils")
         table.insert(configs, "--log_name=" .. package:config("log_name"))
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
-        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace"}) do
+        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client",  
+                               "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
+                               "http_client_ssl", "http_client_zip"}) do
             configs[name] = package:config(name)
         end
 
