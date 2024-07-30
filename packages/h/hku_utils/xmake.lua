@@ -1,7 +1,7 @@
 package("hku_utils")
 
-    set_homepage("http://192.168.100.203:7990/bitbucket/scm/hug_cpp/hku_utils.git")
-    set_description("C++ Tools Library of Yihua.")
+    set_homepage("https://github.com/fasiondog/hku_utils.git")
+    set_description("C++ Tools Library of Hikyuu.")
 
     add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).zip",
              "https://github.com/fasiondog/hku_utils.git")    
