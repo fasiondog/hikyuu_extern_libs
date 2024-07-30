@@ -5,7 +5,7 @@ package("hku_rest")
 
     add_urls("https://github.com/fasiondog/hku_rest/archive/refs/tags/$(version).zip",
              "https://github.com/fasiondog/hku_rest.git")    
-    add_versions("1.0.0", "b34e8006d3f72590f17aac4aa286e5a877b5f94ca60c546898a956c354201820")
+    add_versions("1.0.0", "14c783f4e51d550c4590b03c03bad62cf0462e6e9447522e2d1591fcdfe87e45")
 
     for _, name in ipairs({"mysql"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
@@ -15,31 +15,19 @@ package("hku_rest")
     end
 
     on_load(function(package)
-        package:add("deps", "boost", {
-            configs= {shared = package:is_plat("windows"),
-                runtimes = package:runtimes(),
-                multi = true,
-                date_time = package:config("datetime"),
-                filesystem = false,
-                serialization = false,
-                system = false,
-                python = false,}})
-
-        package:add("deps", "yas")
-        package:add("deps", "fmt", {configs={header_only = true}})
-        package:add("deps", "spdlog", {configs={header_only = true, fmt_external = true}})
+        package:add("deps", "hku_utils", {
+            configs= {shared = true, 
+                mo = true,
+                http_client = false,
+                mysql = has_config("mysql"), 
+                sqlite = has_config("sqlite"),
+                stacktrace = has_config("stacktrace"),}})
     
         if package:config("mysql") then
             package:add("deps", "mysql")
         end
 
-        if package:config("sqlcipher") then
-            if package:is_plat("iphoneos") then
-                package:add("deps", "sqlcipher")
-            else 
-                package:add("deps", "sqlcipher", {system = false, configs = {shared = true, tiny = true, SQLITE_THREADSAFE="1"}})
-            end        
-        elseif package:config("sqlite") then
+        if package:config("sqlite") then
             if is_plat("windows", "android", "cross") then 
                 package:add("deps", "sqlite3", {configs = {shared= true, tiny = true, SQLITE_THREADSAFE="2"}})
             elseif not package:config('shared') then
@@ -57,9 +45,7 @@ package("hku_rest")
         if package:config("shared") then
             configs.kind = "shared"
         end
-        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client",  
-                               "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
-                               "http_client_ssl", "http_client_zip"}) do
+        for _, name in ipairs({"mysql", "sqlite", "stacktrace"}) do
             configs[name] = package:config(name)
         end
 
@@ -69,7 +55,8 @@ package("hku_rest")
     on_test("windows", "linux", "macosx", function (package)
         assert(package:check_cxxsnippets({
             test = [[
-            #include <hikyuu/httpd/Log.h>
+            #include <hikyuu/utilities/Log.h>
+            #include <hikyuu/httpd/HttpServer.h>
             using namespace hku;
             void test() {
                 HttpServer server("http://*", 8080);
