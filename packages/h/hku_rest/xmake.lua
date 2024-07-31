@@ -5,7 +5,7 @@ package("hku_rest")
 
     add_urls("https://github.com/fasiondog/hku_rest/archive/refs/tags/$(version).zip",
              "https://github.com/fasiondog/hku_rest.git")    
-    add_versions("1.0.0", "a6b0a2858ce30bfddcfa3aae90d574848b2a74f98ef0210beef8e23ed94a0475")
+    add_versions("1.0.0", "a3722f67d6c54b162bb1e3b366fd81846e580c2f3f15c4d78f53634d035c45a4")
 
     for _, name in ipairs({"mysql"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
