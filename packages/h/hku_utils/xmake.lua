@@ -5,7 +5,7 @@ package("hku_utils")
 
     add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).zip",
              "https://github.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.2", "996e903aa6f2e18e03c44d78e6e0b46f12979bb035e6519a567c654db3148fb5")
+    add_versions("1.0.2", "c12b1aa19267268e85131c76468f7e98099fe8fcaee8cac41b57058e781a4141")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
