@@ -5,7 +5,7 @@ package("hku_rest")
 
     add_urls("https://github.com/fasiondog/hku_rest/archive/refs/tags/$(version).zip",
              "https://github.com/fasiondog/hku_rest.git")    
-    add_versions("1.0.0", "14c783f4e51d550c4590b03c03bad62cf0462e6e9447522e2d1591fcdfe87e45")
+    add_versions("1.0.0", "a6b0a2858ce30bfddcfa3aae90d574848b2a74f98ef0210beef8e23ed94a0475")
 
     for _, name in ipairs({"mysql"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
@@ -18,23 +18,12 @@ package("hku_rest")
         package:add("deps", "hku_utils", {
             configs= {shared = true, 
                 mo = true,
-                http_client = false,
+                http_client = true,
+                http_client_zip = true,
                 mysql = has_config("mysql"), 
                 sqlite = has_config("sqlite"),
                 stacktrace = has_config("stacktrace"),}})
     
-        if package:config("mysql") then
-            package:add("deps", "mysql")
-        end
-
-        if package:config("sqlite") then
-            if is_plat("windows", "android", "cross") then 
-                package:add("deps", "sqlite3", {configs = {shared= true, tiny = true, SQLITE_THREADSAFE="2"}})
-            elseif not package:config('shared') then
-                package:add("links", "sqlite3")
-            end
-        end
-
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_HTTPD_API=__declspec(dllimport)")
         end
