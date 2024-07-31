@@ -3,9 +3,9 @@ package("hku_utils")
     set_homepage("https://github.com/fasiondog/hku_utils.git")
     set_description("C++ Tools Library of Hikyuu.")
 
-    add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).zip",
+    add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.2", "bc03ea5e2103837198da1f522b68e4e26e99650d8986230b426c4956c7b6ce43")
+    add_versions("1.0.2", "f2ff9bd70d4aa8586381f8d5dfe3854e1a0ea7187f7666a99ca1d20311ddc8f0")
 
     add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
     add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
@@ -64,6 +64,8 @@ package("hku_utils")
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
         end
+
+        package:add("links", "hku_utils")
     end)
 
     on_install(function (package)
