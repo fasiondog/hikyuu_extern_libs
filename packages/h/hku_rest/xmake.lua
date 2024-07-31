@@ -20,9 +20,9 @@ package("hku_rest")
                 mo = true,
                 http_client = true,
                 http_client_zip = true,
-                mysql = has_config("mysql"), 
-                sqlite = has_config("sqlite"),
-                stacktrace = has_config("stacktrace"),}})
+                mysql = package:config("mysql"), 
+                sqlite = package:config("sqlite"),
+                stacktrace =package:config("stacktrace"),}})
     
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_HTTPD_API=__declspec(dllimport)")
