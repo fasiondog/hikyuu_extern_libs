@@ -5,7 +5,7 @@ package("hku_utils")
 
     add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.2", "fa21fe98635d44c6b99f795a623b7be01578b4229b4db800bf9861c25ed5863b")
+    add_versions("1.0.2", "90872bf543aa000060cce14fd6e269385bc59bdfc79232b2da35648e5572e783")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
@@ -41,11 +41,7 @@ package("hku_utils")
                 package:add("deps", "sqlcipher", {system = false, configs = {shared = true, tiny = true, SQLITE_THREADSAFE="1"}})
             end        
         elseif package:config("sqlite") then
-            if is_plat("windows", "android", "cross") then 
-                package:add("deps", "sqlite3", {configs = {shared= true, tiny = true, SQLITE_THREADSAFE="2"}})
-            elseif not package:config('shared') then
-                package:add("links", "sqlite3")
-            end
+            package:add("deps", "sqlite3", {configs = {shared= true, tiny = true, SQLITE_THREADSAFE="2"}})
         end
 
         if package:config("http_client") or package:config("node") then
