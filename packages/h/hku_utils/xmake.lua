@@ -5,10 +5,9 @@ package("hku_utils")
 
     add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.2", "f2ff9bd70d4aa8586381f8d5dfe3854e1a0ea7187f7666a99ca1d20311ddc8f0")
+    add_versions("1.0.2", "fa21fe98635d44c6b99f795a623b7be01578b4229b4db800bf9861c25ed5863b")
 
-    add_configs("log_name",  { description="默认log名称", default = "hikyuu"})
-    add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
+    add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
@@ -61,6 +60,8 @@ package("hku_utils")
             end
         end
 
+        package:add("defines", "SPDLOG_ACTIVE_LEVEL=" .. package:config("log_level"))
+
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
         end
@@ -73,7 +74,6 @@ package("hku_utils")
         if package:config("shared") then
             configs.kind = "shared"
         end
-        table.insert(configs, "--log_name=" .. package:config("log_name"))
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
         for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node",  
