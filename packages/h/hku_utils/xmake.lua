@@ -5,7 +5,7 @@ package("hku_utils")
 
     add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_utils.git")    
-    add_versions("1.0.2", "90872bf543aa000060cce14fd6e269385bc59bdfc79232b2da35648e5572e783")
+    add_versions("1.0.2", "25232d44e87eccbb89a4a3500eec7eba025f0dafbe5631370648f6f2b512252d")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
