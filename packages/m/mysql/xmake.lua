@@ -16,7 +16,7 @@ package("mysql")
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-linux-aarch64.zip")
         add_versions("8.0.21", "385a7e280f86aa864f02ae7061c940a20f1ace358f906d330453992331b638c8")
     elseif is_plat("macosx") then
-        add_extsources("brew::mysql-client")
+        add_extsources("brew::mysql-client", "brew:mysql-connector-c")
     end
 
     on_install("windows", "linux", "cross", function (package)
