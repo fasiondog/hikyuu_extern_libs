@@ -16,7 +16,7 @@ package("mysql")
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-linux-aarch64.zip")
         add_versions("8.0.21", "385a7e280f86aa864f02ae7061c940a20f1ace358f906d330453992331b638c8")
     elseif is_plat("macosx") then
-        add_extsources("brew::mysql")
+        add_extsources("brew::mysql-client")
     end
 
     on_install("windows", "linux", "cross", function (package)
@@ -28,12 +28,12 @@ package("mysql")
     end)
 
     on_load("macosx", function(package)
-        -- package:add("cxflags", "-I/usr/local/opt/mysql-client/include/mysql")
-        -- package:add("cxflags", "-I/usr/local/opt/mysql-client/include")
-        -- package:add("shflags", "-L/usr/local/opt/mysql-client/lib")
-        -- package:add("ldflags", "-L/usr/local/opt/mysql-client/lib")
-        -- package:add("rpathdirs", "/usr/local/opt/mysql-client/lib")
-        -- package:add("links", "mysqlclient")
+        package:add("cxflags", "-I/usr/local/opt/mysql-client/include/mysql")
+        package:add("cxflags", "-I/usr/local/opt/mysql-client/include")
+        package:add("shflags", "-L/usr/local/opt/mysql-client/lib")
+        package:add("ldflags", "-L/usr/local/opt/mysql-client/lib")
+        package:add("rpathdirs", "/usr/local/opt/mysql-client/lib")
+        package:add("links", "mysqlclient")
     end)
 
     on_install("macosx", function(package)
@@ -43,3 +43,12 @@ package("mysql")
         package:addenv("PATH", "bin")
     end)
 
+    on_test(function (package)
+        assert(package:has_cfuncs("mysql_init", {includes = "mysql.h"}))
+        assert(package:check_cxxsnippets({test = [[
+            #include <mysql.h>
+            void test() {
+                MYSQL s;
+            }
+        ]]}))
+    end)
