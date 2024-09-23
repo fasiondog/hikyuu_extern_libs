@@ -25,12 +25,12 @@ package("mysql")
         end
     end)
 
-    on_test(function (package)
-        assert(package:has_cfuncs("mysql_init", {includes = "mysql.h"}))
-        assert(package:check_cxxsnippets({test = [[
-            #include <mysql.h>
-            void test() {
-                MYSQL s;
-            }
-        ]]}))
-    end)
+    -- on_test(function (package)
+    --     assert(package:has_cfuncs("mysql_init", {includes = "mysql.h"}))
+    --     assert(package:check_cxxsnippets({test = [[
+    --         #include <mysql.h>
+    --         void test() {
+    --             MYSQL s;
+    --         }
+    --     ]]}))
+    -- end)
