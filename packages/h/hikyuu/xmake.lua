@@ -8,8 +8,7 @@ package("hikyuu")
              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
              "https://github.com/fasiondog/hikyuu.git",
              "https://gitee.com/fasiondog/hikyuu.git")
-    add_versions("2.1.0", "100af1877ee9124fee16a45a3c0429f573ba4030ab593020aa52acfc800115f9")
-    add_versions("1.3.3", "0fc1dcb827b99d4e38b124d2ce17eed4790b42a7313c4ec8f9fc03b4a335739c")
+    add_versions("2.2.1", "8eaca2369b986b063ae72c4df09fa7119956dab3ed41cdbeb7a57bdca858dbd7")             
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
@@ -19,7 +18,7 @@ package("hikyuu")
     add_configs("spend_time",  { description = "Enable spend time.", default = false, type = "boolean"})
     add_configs("feedback",  { description = "Enable send feedback.", default = true, type = "boolean"})
     add_configs("low_precision",  { description = "Enable send feedback.", default = false, type = "boolean"})
-    add_configs("log_level",  { description="打印日志级别", default = "trace", values = {"trace", "debug", "info", "warn", "error", "fatal", "off"}})
+    add_configs("log_level",  { description="打印日志级别", default = 2, values = {1, 2, 3, 4, 5, 6}})
 
     on_load("windows", "linux", "macosx", function (package)
         package:add("deps", "boost", {
@@ -32,7 +31,7 @@ package("hikyuu")
                 system = false,
                 python = false,}})
 
-        package:add("deps", "fmt")
+        package:add("deps", "fmt", {configs = {header_only = true}})
         package:add("deps", "spdlog", {configs = {header_only = true, fmt_external = true}})
         -- package:add("deps", "flatbuffers", {configs={runtimes=package:runtimes()}})
         if package:is_plat("windows") then
@@ -55,7 +54,6 @@ package("hikyuu")
 
         package:add("deps", "nng", {configs = {cxflags = "-fPIC"}})
         package:add("deps", "nlohmann_json")
-        package:add("deps", "cpp-httplib", {configs = {zlib = true, ssl = true}})
         package:add("deps", "zlib")
    
         if package:config("hdf5") then
@@ -89,7 +87,6 @@ package("hikyuu")
         package:add("defines", "HKU_ENABLE_TDX_KDATA=" .. (package:config("tdx") and 1 or 0))
         if package:is_plat("windows") then
             package:add("defines", "NOCRYPT", "NOGDI", "WIN32_LEAN_AND_MEAN")
-            package:add("defines", "CPPHTTPLIB_OPENSSL_SUPPORT", "CPPHTTPLIB_ZLIB_SUPPORT")
             if package:config("shared") then 
                 package:add("defines", "HKU_API=__declspec(dllimport)")
                 package:add("defines", "BOOST_ALL_DYN_LINK") 
