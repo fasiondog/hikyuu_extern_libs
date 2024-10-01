@@ -18,7 +18,7 @@ package("hikyuu")
     add_configs("spend_time",  { description = "Enable spend time.", default = false, type = "boolean"})
     add_configs("feedback",  { description = "Enable send feedback.", default = true, type = "boolean"})
     add_configs("low_precision",  { description = "Enable send feedback.", default = false, type = "boolean"})
-    add_configs("log_level",  { description="打印日志级别", default = 2, values = {1, 2, 3, 4, 5, 6}})
+    add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
 
     on_load("windows", "linux", "macosx", function (package)
         package:add("deps", "boost", {
