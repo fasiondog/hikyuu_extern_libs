@@ -20,6 +20,11 @@ package("hikyuu")
     add_configs("low_precision",  { description = "Enable send feedback.", default = false, type = "boolean"})
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
 
+    -- 和 hku_utils 对齐
+    add_configs("mo",  { description = "Enable the mo module.", default = false, type = "boolean"})
+    add_configs("http_client_ssl",  { description = "Enable http client ssl.", default = false, type = "boolean"})
+    add_configs("http_client_zip",  { description = "Enable http client zip.", default = false, type = "boolean"})
+
     on_load("windows", "linux", "macosx", function (package)
         package:add("deps", "boost", {
             configs= {shared = package:is_plat("windows"),
@@ -49,7 +54,7 @@ package("hikyuu")
         end
 
         if package:config("sqlite") then
-            package:add("deps", "sqlite3", {configs = {shared = true, cxflags = "-fPIC"}})
+            package:add("deps", "sqlite3", {configs = {shared = true, SQLITE_THREADSAFE = "2"}})
         end
 
         package:add("deps", "nng", {configs = {cxflags = "-fPIC"}})
@@ -64,27 +69,17 @@ package("hikyuu")
             end
         end
 
-        if package:config("spend_time") then
-            package:add("defines", "HKU_CLOSE_SPEND_TIME=0")
+        if package:config("shared") then
+            package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl"), cxflags = "-fPIC"}})
+        else
+            package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl")}})
+        end
+        if package:config("http_client_zip") then
+            package:add("deps", "gzip-hpp")
         end
 
-        package:add("defines", "SPDLOG_DISABLE_DEFAULT_LOGGER")
-        package:add("defines", "LOG_ACTIVE_LEVEL=0", "USE_SPDLOG_LOGGER=1", "USE_SPDLOG_ASYNC_LOGGER=0")
-        package:add("defines", "CHECK_ACCESS_BOUND=1")
-        if package:is_plat("macosx") then
-            package:add("defines", "SUPPORT_SERIALIZATION=0")
-        elseif is_mode("relase") then
-            package:add("defines", "SUPPORT_SERIALIZATION=1")
-        else
-            package:add("defines", "SUPPORT_SERIALIZATION=0")
-        end
-        package:add("defines", "SUPPORT_TEXT_ARCHIVE=0", "SUPPORT_XML_ARCHIVE=1", "SUPPORT_BINARY_ARCHIVE=1")
-        package:add("defines", "HKU_DISABLE_ASSERT=0", "ENABLE_MSVC_LEAK_DETECT=0")
-        package:add("defines", "HKU_ENABLE_SEND_FEEDBACK=1")
-        package:add("defines", "HKU_ENABLE_HDF5_KDATA=" .. (package:config("hdf5") and 1 or 0))
-        package:add("defines", "HKU_ENABLE_MYSQL_KDATA=" .. (package:config("mysql") and 1 or 0))
-        package:add("defines", "HKU_ENABLE_SQLITE_KDATA=" .. (package:config("sqlite") and 1 or 0))
-        package:add("defines", "HKU_ENABLE_TDX_KDATA=" .. (package:config("tdx") and 1 or 0))
+        package:add("defines", "SPDLOG_ACTIVE_LEVEL=" .. package:config("log_level"))
+
         if package:is_plat("windows") then
             package:add("defines", "NOCRYPT", "NOGDI", "WIN32_LEAN_AND_MEAN")
             if package:config("shared") then 
@@ -110,6 +105,9 @@ package("hikyuu")
         table.insert(configs, "--spend_time=" .. (package:config("spend_time") and "true" or "false"))
         table.insert(configs, "--feedback=" .. (package:config("feedback") and "true" or "false"))
         table.insert(configs, "--low_precision=" .. (package:config("low_precision") and "true" or "false"))
+        table.insert(configs, "--mo=" .. (package:config("mo") and "true" or "false"))
+        table.insert(configs, "--http_client_ssl=" .. (package:config("http_client_ssl") and "true" or "false"))
+        table.insert(configs, "--http_client_zip=" .. (package:config("http_client_zip") and "true" or "false"))
 
         import("package.tools.xmake").install(package, configs)
     end)
