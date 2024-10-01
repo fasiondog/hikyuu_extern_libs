@@ -8,7 +8,7 @@ package("hikyuu")
              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
              "https://github.com/fasiondog/hikyuu.git",
              "https://gitee.com/fasiondog/hikyuu.git")
-    add_versions("2.2.1", "b11f9cc53908e1f5b6c2524da8b123eccad836d0c699ac2ccd0c03809c250647")             
+    add_versions("2.2.1", "6bb974ecd7810d6dcca89380efc4a1e89bb13ecaedc89894d8fe65432af804ad")             
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
@@ -53,7 +53,7 @@ package("hikyuu")
             package:add("deps", "mysql")
         end
 
-        if package:config("sqlite") then
+        if package:config("sqlite") or package:config("hdf5") then
             package:add("deps", "sqlite3", {configs = {shared = true, SQLITE_THREADSAFE = "2"}})
         end
 
@@ -84,6 +84,7 @@ package("hikyuu")
             package:add("defines", "NOCRYPT", "NOGDI", "WIN32_LEAN_AND_MEAN")
             if package:config("shared") then 
                 package:add("defines", "HKU_API=__declspec(dllimport)")
+                package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
                 package:add("defines", "BOOST_ALL_DYN_LINK") 
             end
             package:add("cxflags", "-EHsc", "/Zc:__cplusplus", "/utf-8")
