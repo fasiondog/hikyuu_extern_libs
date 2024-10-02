@@ -8,6 +8,7 @@ package("hku_rest")
     add_versions("1.0.1", "c943d0886dacb83ffe620bbea0451cf55504615c84acb47b977d834b22cc1505")
     add_versions("1.0.0", "1fd1f85a8eabf72bdad0dff11560e6da07d3b3cd61151469faf8ee4d83dd28ae")
 
+    add_configs("use_hikyuu", {description = "Use the hikyuu.", default = false, type = "boolean"})
     for _, name in ipairs({"mysql"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
@@ -16,14 +17,25 @@ package("hku_rest")
     end
 
     on_load(function(package)
-        package:add("deps", "hku_utils", {
-            configs= {shared = true, 
-                mo = true,
-                http_client = true,
-                http_client_zip = true,
-                mysql = package:config("mysql"), 
-                sqlite = package:config("sqlite"),
-                stacktrace =package:config("stacktrace"),}})
+        if package:config("use_hikyuu") then
+            package:add("deps", "hikyuu", {
+                configs= {shared = true, 
+                    mo = true,
+                    http_client = true,
+                    http_client_zip = true,
+                    mysql = package:config("mysql"), 
+                    sqlite = package:config("sqlite"),
+                    stacktrace =package:config("stacktrace"),}})
+        else
+            package:add("deps", "hku_utils", {
+                configs= {shared = true, 
+                    mo = true,
+                    http_client = true,
+                    http_client_zip = true,
+                    mysql = package:config("mysql"), 
+                    sqlite = package:config("sqlite"),
+                    stacktrace =package:config("stacktrace"),}})
+        end
     
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_HTTPD_API=__declspec(dllimport)")
@@ -35,6 +47,7 @@ package("hku_rest")
         if package:config("shared") then
             configs.kind = "shared"
         end
+        configs["use_hikyuu"] = package:config("use_hikyuu")
         for _, name in ipairs({"mysql", "sqlite", "stacktrace"}) do
             configs[name] = package:config(name)
         end
