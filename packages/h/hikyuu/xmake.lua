@@ -18,6 +18,7 @@ package("hikyuu")
     add_configs("spend_time",  { description = "Enable spend time.", default = false, type = "boolean"})
     add_configs("feedback",  { description = "Enable send feedback.", default = true, type = "boolean"})
     add_configs("low_precision",  { description = "Enable send feedback.", default = false, type = "boolean"})
+    add_configs("async_log",  { description = "Use asyn log.", default = false, type = "boolean"})
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
 
     -- 和 hku_utils 对齐
@@ -97,6 +98,7 @@ package("hikyuu")
             configs.kind = "shared"
         end
 
+        table.insert(configs, "--log_level=" .. package:config("log_level"))
         table.insert(configs, "--hdf5=" .. (package:config("hdf5") and "true" or "false"))
         table.insert(configs, "--mysql=" .. (package:config("mysql") and "true" or "false"))
         table.insert(configs, "--sqlite=" .. (package:config("sqlite") and "true" or "false"))
@@ -105,6 +107,7 @@ package("hikyuu")
         table.insert(configs, "--spend_time=" .. (package:config("spend_time") and "true" or "false"))
         table.insert(configs, "--feedback=" .. (package:config("feedback") and "true" or "false"))
         table.insert(configs, "--low_precision=" .. (package:config("low_precision") and "true" or "false"))
+        table.insert(configs, "--async_log=" .. (package:config("async_log") and "true" or "false"))
         table.insert(configs, "--mo=" .. (package:config("mo") and "true" or "false"))
         table.insert(configs, "--http_client_ssl=" .. (package:config("http_client_ssl") and "true" or "false"))
         table.insert(configs, "--http_client_zip=" .. (package:config("http_client_zip") and "true" or "false"))

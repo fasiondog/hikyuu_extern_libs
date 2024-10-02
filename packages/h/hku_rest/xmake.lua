@@ -12,7 +12,7 @@ package("hku_rest")
     for _, name in ipairs({"mysql"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
-    for _, name in ipairs({"sqlite", "stacktrace"}) do
+    for _, name in ipairs({"sqlite", "stacktrace", "async_log"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = false, type = "boolean"})
     end
 
@@ -48,7 +48,7 @@ package("hku_rest")
             configs.kind = "shared"
         end
         configs["use_hikyuu"] = package:config("use_hikyuu")
-        for _, name in ipairs({"mysql", "sqlite", "stacktrace"}) do
+        for _, name in ipairs({"mysql", "sqlite", "stacktrace", "async_log"}) do
             configs[name] = package:config(name)
         end
 
