@@ -5,7 +5,7 @@ package("hku_rest")
 
     add_urls("https://github.com/fasiondog/hku_rest/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_rest.git")    
-    add_versions("1.0.1", "7b3ac9cada3ec0b663887182da0fa8ac5c8d74f8851bc0a1c55d4ba9f3db4e51")
+    add_versions("1.0.1", "caa916125d28e7044c2ea513bdf31af7c39677fef7d296c5094abb2f4909c046")
     add_versions("1.0.0", "1fd1f85a8eabf72bdad0dff11560e6da07d3b3cd61151469faf8ee4d83dd28ae")
 
     add_configs("use_hikyuu", {description = "Use the hikyuu.", default = false, type = "boolean"})
