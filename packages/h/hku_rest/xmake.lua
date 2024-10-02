@@ -5,6 +5,7 @@ package("hku_rest")
 
     add_urls("https://github.com/fasiondog/hku_rest/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_rest.git")    
+    add_versions("1.0.1", "c943d0886dacb83ffe620bbea0451cf55504615c84acb47b977d834b22cc1505")
     add_versions("1.0.0", "1fd1f85a8eabf72bdad0dff11560e6da07d3b3cd61151469faf8ee4d83dd28ae")
 
     for _, name in ipairs({"mysql"}) do
