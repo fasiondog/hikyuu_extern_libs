@@ -89,7 +89,10 @@ package("hikyuu")
             end
             package:add("cxflags", "-EHsc", "/Zc:__cplusplus", "/utf-8")
             package:add("links", "bcrypt", "hikyuu")
-        end        
+        else
+            package:add("links", "hikyuu")
+        end
+                
     end)
 
     on_install("windows", "linux", "macosx", function (package)
