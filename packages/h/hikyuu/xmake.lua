@@ -8,7 +8,7 @@ package("hikyuu")
              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
              "https://github.com/fasiondog/hikyuu.git",
              "https://gitee.com/fasiondog/hikyuu.git")
-    add_versions("2.2.1", "6bb974ecd7810d6dcca89380efc4a1e89bb13ecaedc89894d8fe65432af804ad")             
+    add_versions("2.2.1", "1cbd6974d8a9f4b15358241cdfe91d3d021b613a6fc03eb76fb6bf251d1e9228")             
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
@@ -59,7 +59,6 @@ package("hikyuu")
 
         package:add("deps", "nng", {configs = {cxflags = "-fPIC"}})
         package:add("deps", "nlohmann_json")
-        package:add("deps", "zlib")
    
         if package:config("hdf5") then
             if is_plat("windows") and is_mode("debug") then
