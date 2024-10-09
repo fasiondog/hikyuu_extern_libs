@@ -8,7 +8,7 @@ package("hikyuu")
              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
              "https://github.com/fasiondog/hikyuu.git",
              "https://gitee.com/fasiondog/hikyuu.git")
-    add_versions("2.2.1", "56435bc140a033ffc6374f17440ad175b13b9591211b6b0d5a7a7c4cfda1f285")             
+    add_versions("2.2.1", "53d377edf2d5b4c239440fd337834bd76e10e7a144c52b801ddb42f72e22bca4")             
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
