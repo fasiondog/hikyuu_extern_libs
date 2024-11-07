@@ -35,7 +35,9 @@ package("hikyuu")
                 filesystem = false,
                 serialization = true,
                 system = false,
-                python = false,}})
+                python = false,
+                cmake = false,
+            }})
 
         package:add("deps", "fmt", {configs = {header_only = true}})
         package:add("deps", "spdlog", {configs = {header_only = true, fmt_external = true}})

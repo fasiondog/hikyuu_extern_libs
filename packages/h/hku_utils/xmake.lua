@@ -31,7 +31,9 @@ package("hku_utils")
                 filesystem = false,
                 serialization = false,
                 system = false,
-                python = false,}})
+                python = false,
+                cmake = false,
+            }})
 
         package:add("deps", "yas")
         package:add("deps", "fmt", {configs={header_only = true}})
