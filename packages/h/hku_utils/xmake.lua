@@ -6,6 +6,7 @@ package("hku_utils")
     add_urls("https://github.com/fasiondog/hku_utils/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_utils.git")    
 
+    add_versions("1.1.0", "ae6e0d129fd805db9a56e5f4ef716e035ea867f913bdadc4d672d4c6abb96b7d")
     add_versions("1.0.9", "0f73025b309ce7d792299ad8e1d674d797deb0803c9ac688ebe2503748af1d5d")             
     add_versions("1.0.8", "55f0e6ae84be574f221085fb527a306d303eefa371e5eb84ef650d4137f84b79")
     add_versions("1.0.7", "d1cbafd61904e4ae06dd6e389b35238fd3fc770543d4b87561aa31e2d974c779")
