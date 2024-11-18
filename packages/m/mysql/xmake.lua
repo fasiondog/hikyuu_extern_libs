@@ -15,9 +15,12 @@ package("mysql")
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-linux-aarch64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-linux-aarch64.zip")
         add_versions("8.0.21", "385a7e280f86aa864f02ae7061c940a20f1ace358f906d330453992331b638c8")
+    elseif is_plat("macosx") and is_arch("aarch64", "arm64.*") then
+        add_urls("https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-arm64.zip")
+        add_versions("8.0.40", "b7cd5ac0fba457abfeca57c53f39fe43166bead047afdb59f6a6f2258eeaec2c")
     end
 
-    on_install("windows", "linux", "cross", function (package)
+    on_install("windows", "linux", "macosx", "cross", function (package)
         os.cp("include", package:installdir())
         os.cp("lib", package:installdir())
         if package:is_plat("windows") then
@@ -26,9 +29,9 @@ package("mysql")
     end)
 
     -- on_test(function (package)
-    --     assert(package:has_cfuncs("mysql_init", {includes = "mysql.h"}))
+    --     assert(package:has_cfuncs("mysql_init", {includes = "mysql/mysql.h"}))
     --     assert(package:check_cxxsnippets({test = [[
-    --         #include <mysql.h>
+    --         #include <mysql/mysql.h>
     --         void test() {
     --             MYSQL s;
     --         }
