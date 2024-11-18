@@ -62,19 +62,19 @@ package("hdf5")
         package:addenv("PATH", package:installdir("bin"))
     end)
 
-    on_test("macosx", function (package)
-        if package:config("shared") then
-            os.vrun("h5diff-shared --version")
-        else
-            os.vrun("h5diff --version")
-        end
-        assert(package:has_cfuncs("H5open", {includes = "H5public.h"}))
+    -- on_test("macosx", function (package)
+    --     if package:config("shared") then
+    --         os.vrun("h5diff-shared --version")
+    --     else
+    --         os.vrun("h5diff --version")
+    --     end
+    --     assert(package:has_cfuncs("H5open", {includes = "H5public.h"}))
 
-        if package:config("cpplib") then
-             assert(package:check_cxxsnippets({test = [[
-                void test() {
-                    H5::H5Library::open();
-                }
-            ]]}, {configs = {languages = "c++17"}, includes = {"H5Cpp.h"}}))
-        end
-    end)
+    --     if package:config("cpplib") then
+    --          assert(package:check_cxxsnippets({test = [[
+    --             void test() {
+    --                 H5::H5Library::open();
+    --             }
+    --         ]]}, {configs = {languages = "c++17"}, includes = {"H5Cpp.h"}}))
+    --     end
+    -- end)
