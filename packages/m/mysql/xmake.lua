@@ -15,10 +15,16 @@ package("mysql")
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-linux-aarch64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-linux-aarch64.zip")
         add_versions("8.0.21", "385a7e280f86aa864f02ae7061c940a20f1ace358f906d330453992331b638c8")
-    elseif is_plat("macosx") and is_arch("arm64.*") then
-        add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-arm64.zip",
-                 "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-arm64.zip")
-        add_versions("8.0.40", "b7cd5ac0fba457abfeca57c53f39fe43166bead047afdb59f6a6f2258eeaec2c")
+    elseif is_plat("macosx") then
+        if is_arch("arm64.*") then
+            add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-arm64.zip",
+                    "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-arm64.zip")
+            add_versions("8.0.40", "b7cd5ac0fba457abfeca57c53f39fe43166bead047afdb59f6a6f2258eeaec2c")
+        else
+            add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-x86_64.zip",
+            "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-x86_64.zip")
+            add_versions("8.0.40", "7b8f141549038a6d303cdfe4198c182ae48ef66aa8a39755af427c2dac062fbf")
+        end
     end
 
     on_install("windows", "linux", "macosx", "cross", function (package)
