@@ -13,10 +13,10 @@ package("hdf5")
     --     add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-x64.zip",
     --         "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-x64.zip")
     --     add_versions("1.12.2", "e0f4357ea7bfa0132c3edba9b517635736191f920ce7a3aeef5e89dbe5b2dd27")
-    -- elseif is_plat("linux", "cross") and is_arch("aarch64", "arm64.*") then
-    --     add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-aarch64.zip",
-    --              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-aarch64.zip")
-    --     add_versions("1.12.2", "d73a880d9dfede0d5db1e30555fa251ca82efa437a0d93b46f5e64e87e71fc63")
+    elseif is_plat("cross") and is_arch("aarch64", "arm64.*") then
+        add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-aarch64.zip",
+                 "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/hdf5-$(version)-linux-aarch64.zip")
+        add_versions("1.12.2", "d73a880d9dfede0d5db1e30555fa251ca82efa437a0d93b46f5e64e87e71fc63")
     elseif is_plat("macosx", "linux", "cross") then
         add_urls("https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-$(version).tar.gz", {version = function (version)
             return format("%d.%d/hdf5-%s/src/hdf5-%s", version:major(), version:minor(), version, version)
@@ -25,7 +25,7 @@ package("hdf5")
     end
 
     
-    if is_plat("macosx", "linux", "cross") then
+    if is_plat("macosx", "linux") then
         add_deps("cmake", "zlib")
     end
 
@@ -33,7 +33,7 @@ package("hdf5")
         package:add("defines", "H5_BUILT_AS_DYNAMIC_LIB")
     end)
 
-    on_install("windows", function (package)
+    on_install("windows", "cross", function (package)
         os.cp("include", package:installdir())
         os.cp("lib", package:installdir())
         if package:is_plat("windows") then
@@ -41,7 +41,7 @@ package("hdf5")
         end
     end)
 
-    on_install("macosx", "linux", "cross", function (package)
+    on_install("macosx", "linux", function (package)
         io.replace("CMakeLists.txt", 'set (HDF5_EXTERNAL_LIB_PREFIX "" CACHE STRING "Use prefix for custom library naming.")', 
                    'set (HDF5_EXTERNAL_LIB_PREFIX "hku_" CACHE STRING "Use prefix for custom library naming.")', {plain = true})
         local configs = {
