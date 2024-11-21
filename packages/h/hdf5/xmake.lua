@@ -25,8 +25,8 @@ package("hdf5")
     end
 
     
-    if is_plat("macosx") then
-        add_deps("cmake", "szip", "zlib")
+    if is_plat("macosx", "linux", "cross") then
+        add_deps("cmake", "zlib")
     end
 
     on_load("windows", "linux", "cross", function (package)
@@ -58,7 +58,6 @@ package("hdf5")
             "-DHDF5_ENABLE_THREADSAFE=ON",
             "-DHDF5_PACKAGE_EXTLIBS=ON",
             "-DHDF5_ENABLE_Z_LIB_SUPPORT=ON",
-            -- "-DHDF5_ENABLE_SZIP_SUPPORT=ON"
         }
         import("package.tools.cmake").install(package, configs)
         package:addenv("HDF5_ROOT", path.join(package:installdir("cmake")))
