@@ -7,7 +7,7 @@ package("ta-lib")
              "https://gitcode.com/KongDong/ta-lib.git")
 
 
-    add_deps("cmake")
+    add_deps("cmake >=3.30")
 
     on_load(function (package)
         if package:config("shared") then
