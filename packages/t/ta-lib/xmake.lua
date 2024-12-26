@@ -3,8 +3,10 @@ package("ta-lib")
     set_description("Technical Analysis Library for financial market trading applications")
     set_license("BSD-3-Clause")
 
-    add_urls("https://github.com/TA-Lib/ta-lib.git",
+    add_urls("https://github.com/TA-Lib/ta-lib/archive/refs/tags/v$(version).tar.gz",
+             "https://github.com/TA-Lib/ta-lib.git",
              "https://gitcode.com/KongDong/ta-lib.git")
+    add_versions("0.6.2", "6b7c5e575bd3359d46b7103d11637a5d689b9efeae88103d145987a0e7f83316")
 
     add_deps("cmake >=3.30")
 
