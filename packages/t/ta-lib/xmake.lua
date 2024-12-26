@@ -9,6 +9,7 @@ package("ta-lib")
     add_deps("cmake >=3.30")
 
     on_install(function (package)
+        io.replace("CMakeLists.txt", "if(NOT DEFINED ENV{SOURCE_DATE_EPOCH})", "if(DEFINED ENV{SOURCE_DATE_EPOCH})", {plain = true})
         io.replace("CMakeLists.txt", "install(TARGETS ta-lib ta-lib-static", "install(TARGETS ta-lib-static", {plain = true})
         io.replace("CMakeLists.txt", "DESTINATION include/ta-lib", "DESTINATION include", {plain = true})
         import("package.tools.cmake").install(package, {"-DBUILD_DEV_TOOLS=OFF"})   
