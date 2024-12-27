@@ -8,11 +8,16 @@ package("ta-lib")
 
     add_deps("cmake >=3.30")
 
+    -- on_install(function (package)
+    --     io.replace("CMakeLists.txt", "if(NOT DEFINED ENV{SOURCE_DATE_EPOCH})", "if(DEFINED ENV{SOURCE_DATE_EPOCH})", {plain = true})
+    --     io.replace("CMakeLists.txt", "install(TARGETS ta-lib ta-lib-static", "install(TARGETS ta-lib-static", {plain = true})
+    --     io.replace("CMakeLists.txt", "DESTINATION include/ta-lib", "DESTINATION include", {plain = true})
+    --     import("package.tools.cmake").install(package, {"-DBUILD_DEV_TOOLS=OFF"})   
+    -- end)
+
     on_install(function (package)
-        io.replace("CMakeLists.txt", "if(NOT DEFINED ENV{SOURCE_DATE_EPOCH})", "if(DEFINED ENV{SOURCE_DATE_EPOCH})", {plain = true})
-        io.replace("CMakeLists.txt", "install(TARGETS ta-lib ta-lib-static", "install(TARGETS ta-lib-static", {plain = true})
-        io.replace("CMakeLists.txt", "DESTINATION include/ta-lib", "DESTINATION include", {plain = true})
-        import("package.tools.cmake").install(package, {"-DBUILD_DEV_TOOLS=OFF"})   
+        os.cp(path.join(package:scriptdir(), "port", "xmake.lua"), "xmake.lua")
+        import("package.tools.xmake").install(package)
     end)
 
     on_test(function (package)
@@ -21,5 +26,5 @@ package("ta-lib")
                 TA_Initialize();
                 TA_Shutdown();
             }
-        ]]}, {configs = {languages = "c++11"}, includes = "ta_libc.h"}))
+        ]]}, {configs = {languages = "c++11"}, includes = "ta-lib/ta_libc.h"}))
     end)
