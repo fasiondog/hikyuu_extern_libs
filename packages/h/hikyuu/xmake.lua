@@ -8,8 +8,9 @@ package("hikyuu")
              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
              "https://github.com/fasiondog/hikyuu.git",
              "https://gitee.com/fasiondog/hikyuu.git")
-    add_versions("2.2.4", "0e3bb07013ee9b5958b5dad6c56b5c308379b3a328dc5194eaffb80e59d08f58")  
-    add_versions("2.2.1", "49d4849a3b8ed881f935efdd83c6a81bfef8338e9da8681fb00e75cdb3209664")             
+    add_versions("2.3.0", "cc106f11811773fe037287452ba8cc85f44fe6a4f56b69300545804dcaf2a606")
+    add_versions("2.2.4", "0e3bb07013ee9b5958b5dad6c56b5c308379b3a328dc5194eaffb80e59d08f58")
+    add_versions("2.2.1", "49d4849a3b8ed881f935efdd83c6a81bfef8338e9da8681fb00e75cdb3209664")
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
@@ -21,6 +22,7 @@ package("hikyuu")
     add_configs("low_precision",  { description = "Enable send feedback.", default = false, type = "boolean"})
     add_configs("async_log",  { description = "Use asyn log.", default = false, type = "boolean"})
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
+    add_configs("serialize",  { description = "serialize support", default = false, type = "boolean"})
 
     -- 和 hku_utils 对齐
     add_configs("mo",  { description = "Enable the mo module.", default = false, type = "boolean"})
@@ -34,7 +36,7 @@ package("hikyuu")
                 multi = true,
                 date_time = true,
                 filesystem = false,
-                serialization = true,
+                serialization = package:config("serialize"),
                 system = false,
                 python = false,
                 cmake = false,
@@ -104,6 +106,7 @@ package("hikyuu")
             configs.kind = "shared"
         end
 
+        table.insert(configs, "--serialize=" .. (package:config("serialize") and "true" or "false"))
         table.insert(configs, "--log_level=" .. package:config("log_level"))
         table.insert(configs, "--hdf5=" .. (package:config("hdf5") and "true" or "false"))
         table.insert(configs, "--mysql=" .. (package:config("mysql") and "true" or "false"))
