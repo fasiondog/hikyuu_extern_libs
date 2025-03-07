@@ -4,13 +4,17 @@ package("hikyuu")
     set_description("High Performance Quant Framework with C++/Python")
     set_license("MIT")
 
-    add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
-             "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
-             "https://github.com/fasiondog/hikyuu.git",
-             "https://gitee.com/fasiondog/hikyuu.git")
-    add_versions("2.3.0", "25f04bb577472f922aa73be20e109d6015ac2ca6b1e93d5d887e232c1e230fd2")
-    add_versions("2.2.4", "0e3bb07013ee9b5958b5dad6c56b5c308379b3a328dc5194eaffb80e59d08f58")
-    add_versions("2.2.1", "49d4849a3b8ed881f935efdd83c6a81bfef8338e9da8681fb00e75cdb3209664")
+    -- add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
+    --          "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
+    --          "https://github.com/fasiondog/hikyuu.git",
+    --          "https://gitee.com/fasiondog/hikyuu.git")
+    -- add_versions("2.3.0", "25f04bb577472f922aa73be20e109d6015ac2ca6b1e93d5d887e232c1e230fd2")
+    -- add_versions("2.2.4", "0e3bb07013ee9b5958b5dad6c56b5c308379b3a328dc5194eaffb80e59d08f58")
+    -- add_versions("2.2.1", "49d4849a3b8ed881f935efdd83c6a81bfef8338e9da8681fb00e75cdb3209664")
+
+    add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).zip",
+        "https://github.com/fasiondog/hikyuu.git")
+    add_versions("2.5.2", "2c20f588895e3dbc309e9e1a5bee383f233234e09bf8435c35c10db24821b259")
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
@@ -23,6 +27,7 @@ package("hikyuu")
     add_configs("async_log",  { description = "Use asyn log.", default = false, type = "boolean"})
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     add_configs("serialize",  { description = "serialize support", default = false, type = "boolean"})
+    add_configs("ta_lib",  { description = "Enable ta-lib support.", default = true, type = "boolean"})
 
     -- 和 hku_utils 对齐
     add_configs("mo",  { description = "Enable the mo module.", default = false, type = "boolean"})
@@ -90,14 +95,16 @@ package("hikyuu")
             if package:config("shared") then 
                 package:add("defines", "HKU_API=__declspec(dllimport)")
                 package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
-                package:add("defines", "BOOST_ALL_DYN_LINK") 
             end
             package:add("cxflags", "-EHsc", "/Zc:__cplusplus", "/utf-8")
             package:add("links", "bcrypt", "hikyuu")
         else
             package:add("links", "hikyuu")
         end
-                
+             
+        if package:config("ta_lib") then
+            package:add("deps", "ta-lib")
+        end
     end)
 
     on_install("windows", "linux", "macosx", function (package)
@@ -117,6 +124,7 @@ package("hikyuu")
         table.insert(configs, "--feedback=" .. (package:config("feedback") and "true" or "false"))
         table.insert(configs, "--low_precision=" .. (package:config("low_precision") and "true" or "false"))
         table.insert(configs, "--async_log=" .. (package:config("async_log") and "true" or "false"))
+        table.insert(configs, "--ta_lib=" .. (package:config("ta_lib") and "true" or "false"))
         table.insert(configs, "--mo=" .. (package:config("mo") and "true" or "false"))
         table.insert(configs, "--http_client_ssl=" .. (package:config("http_client_ssl") and "true" or "false"))
         table.insert(configs, "--http_client_zip=" .. (package:config("http_client_zip") and "true" or "false"))
