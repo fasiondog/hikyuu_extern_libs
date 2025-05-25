@@ -14,6 +14,7 @@ package("hikyuu")
 
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).zip",
         "https://github.com/fasiondog/hikyuu.git")
+    add_versions("2.6.3", "9acae6a7d57c65e9787206398373fa5fddee0b65b5b3862aef07a25079d6ff16")
     add_versions("2.5.3", "636638d93fb11ff602b22f578568795934a76a8679418d81147a55ac09228f1d")
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
@@ -69,7 +70,7 @@ package("hikyuu")
         end
 
         package:add("deps", "nng", {configs = {cxflags = "-fPIC"}})
-        package:add("deps", "nlohmann_json")
+        package:add("deps", "nlohmann_json", "xxhash")
    
         if package:config("hdf5") then
             if is_plat("windows") and is_mode("debug") then
