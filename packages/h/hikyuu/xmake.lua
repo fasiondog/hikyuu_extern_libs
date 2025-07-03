@@ -4,16 +4,9 @@ package("hikyuu")
     set_description("High Performance Quant Framework with C++/Python")
     set_license("MIT")
 
-    -- add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
-    --          "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/hikyuu/hikyuu-$(version).zip",
-    --          "https://github.com/fasiondog/hikyuu.git",
-    --          "https://gitee.com/fasiondog/hikyuu.git")
-    -- add_versions("2.3.0", "25f04bb577472f922aa73be20e109d6015ac2ca6b1e93d5d887e232c1e230fd2")
-    -- add_versions("2.2.4", "0e3bb07013ee9b5958b5dad6c56b5c308379b3a328dc5194eaffb80e59d08f58")
-    -- add_versions("2.2.1", "49d4849a3b8ed881f935efdd83c6a81bfef8338e9da8681fb00e75cdb3209664")
-
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).zip",
         "https://github.com/fasiondog/hikyuu.git")
+    add_versions("2.6.5", "dc1cf6f744aa07c915cde3f3718470eb3d7b3dd15b476cad0f5d54efe554b2e0")
     add_versions("2.6.3", "9acae6a7d57c65e9787206398373fa5fddee0b65b5b3862aef07a25079d6ff16")
     add_versions("2.5.3", "636638d93fb11ff602b22f578568795934a76a8679418d81147a55ac09228f1d")
 
