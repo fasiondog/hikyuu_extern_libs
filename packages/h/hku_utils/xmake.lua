@@ -7,7 +7,7 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git",
              "https://github.com/fasiondog/hku_utils.git")
 
-    add_versions("1.2.6", "e77032b87024d9dfcf1be330377fd8214d91f6d5cdfb5ec2d8a55d90d0970594")
+    add_versions("1.2.6", "ef0fe0530fdcbe9dc73cf708d1e28f5457cd5d65b46dc07cfe2251aa7e4cd96d")
     add_versions("1.2.5", "a569c4f486ac8727dc03dc71bd528fa4d3f9ec598ad8b5f92760283ffd80341c")
     add_versions("1.2.4", "8b51794b64808bc233df3b680909eaf523fa9ce981444c7c9f23e323b837d471")
     add_versions("1.2.3", "7305bae82b055ba27e37a69b8797b8f7721c1c057fda186a57a902edc93b44e5")
@@ -87,6 +87,10 @@ package("hku_utils")
 
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
+        end
+
+        if package:is_plat("macosx") and package:config("mo") then
+            package:add("frameworks", "CoreFoundation")
         end
 
         package:add("links", "hku_utils")
