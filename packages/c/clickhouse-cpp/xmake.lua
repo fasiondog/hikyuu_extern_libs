@@ -7,14 +7,19 @@ package("clickhouse-cpp")
     add_urls("https://github.com/ClickHouse/clickhouse-cpp.git")
     add_versions("2025.06.24", "cae657a672ff09b715d7127b13eb25d63bea01d4")
 
-    add_deps("cmake")
+    add_deps("cmake", "zstd")
+
+    if is_plat("windows") then 
+        add_syslinks("ws2_32")
+    end
 
     on_load(function(package)
         package:add("links", "clickhouse-cpp-lib", "lz4", "zstdstatic", "cityhash", "absl_int128")
     end)
 
     on_install("windows", "macosx", "linux", "mingw@windows", function (package)
-        import("package.tools.cmake").install(package)
+        local configs = {"-DWITH_SYSTEM_ZSTD=ON"}
+        import("package.tools.cmake").install(package, configs)
         os.cp("contrib/absl/absl", package:installdir("include"))
     end)
 
