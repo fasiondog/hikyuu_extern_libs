@@ -100,6 +100,10 @@ package("hikyuu")
         if package:config("ta_lib") then
             package:add("deps", "ta-lib")
         end
+
+        if package:config("mo") and package:is_plat("macosx") then
+            package:add("frameworks", "CoreFoundation")
+        end
     end)
 
     on_install("windows", "linux", "macosx", function (package)
