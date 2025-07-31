@@ -6,6 +6,7 @@ package("hikyuu")
 
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).zip",
         "https://github.com/fasiondog/hikyuu.git")
+    add_versions("2.6.6", "45eaf9f41014fe5f8c0c61c2d81c71a3ea5e7e2ce617d449e30dfc5637025e4b")
     add_versions("2.6.5", "dc1cf6f744aa07c915cde3f3718470eb3d7b3dd15b476cad0f5d54efe554b2e0")
     add_versions("2.6.3", "9acae6a7d57c65e9787206398373fa5fddee0b65b5b3862aef07a25079d6ff16")
     add_versions("2.5.3", "636638d93fb11ff602b22f578568795934a76a8679418d81147a55ac09228f1d")
