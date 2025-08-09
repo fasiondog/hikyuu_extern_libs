@@ -7,6 +7,7 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git",
              "https://github.com/fasiondog/hku_utils.git")
 
+    add_versions("1.2.8", "0503363057f2b5fe55162aa14ed997be679d38421457f981e22688e3a466001f")
     add_versions("1.2.7", "b2640f6e45904a695ac0e4372a4962fad2283791202eb17b1b1232a6e22ba4b6")
     add_versions("1.2.6", "ef0fe0530fdcbe9dc73cf708d1e28f5457cd5d65b46dc07cfe2251aa7e4cd96d")
     add_versions("1.2.5", "a569c4f486ac8727dc03dc71bd528fa4d3f9ec598ad8b5f92760283ffd80341c")
@@ -14,7 +15,7 @@ package("hku_utils")
     add_versions("1.2.3", "7305bae82b055ba27e37a69b8797b8f7721c1c057fda186a57a902edc93b44e5")
     add_versions("1.2.2", "6459ed48e829355a0f53f1819293ab46998b91e2fa289712423d9d8e404bbb90")
     add_versions("1.2.1", "f3e8ea247b1337d847ca428365d846831fb6f6c4a0f376de8d0fc18857dd960f")
-    add_versions("1.2.0", "6dcc3e8d9e49f6c4616bb0aee687be1168ceb0e2a2c98aafffd96511b6facca3")   
+    add_versions("1.2.0", "6dcc3e8d9e49f6c4616bb0aee687be1168ceb0e2a2c98aafffd96511b6facca3")
     add_versions("1.1.9", "8874e643817940492ddd99d0bdc7c5edb62dbbecc94bd0da0fe2af5417ccd7dd")
     add_versions("1.1.8", "3400aec0345d09e167aca8e54bdc222f79825ea3451183325be453851aff50c7")
     add_versions("1.1.7", "7392ca8540e422ea8178a88e2faadeb5019a6cc6100d32b845ba264f059ae131")
@@ -25,7 +26,7 @@ package("hku_utils")
     add_versions("1.1.2", "c6de2352a70f151d4783198831e4ce698dd4813654ed534dd12cdc8354421370")
     add_versions("1.1.1", "1bd57b198b99940331795bb0fe7c1db62b74e2e1e5fbb0cb3849391ad24bfb5a")
     add_versions("1.1.0", "99789e604bb67120e01d78cb7ef6d9d89c377f85061928b198a9656d2ad304f6")
-    add_versions("1.0.9", "0f73025b309ce7d792299ad8e1d674d797deb0803c9ac688ebe2503748af1d5d")             
+    add_versions("1.0.9", "0f73025b309ce7d792299ad8e1d674d797deb0803c9ac688ebe2503748af1d5d")
     add_versions("1.0.8", "55f0e6ae84be574f221085fb527a306d303eefa371e5eb84ef650d4137f84b79")
     add_versions("1.0.7", "d1cbafd61904e4ae06dd6e389b35238fd3fc770543d4b87561aa31e2d974c779")
     add_versions("1.0.6", "3aee54833ec4ff60bc7d34ae5ac00d0fc0244280b3f9fbc3b21518aee07c5828")
@@ -90,7 +91,7 @@ package("hku_utils")
             package:add("defines", "HKU_UTILS_API=__declspec(dllimport)")
         end
 
-        if package:is_plat("macosx") and package:config("mo") then
+        if package:is_plat("macosx") then
             package:add("frameworks", "CoreFoundation")
         end
 
@@ -105,9 +106,13 @@ package("hku_utils")
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
         for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node",  
-                               "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
+                               "async_log", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
                                "http_client_ssl", "http_client_zip"}) do
             configs[name] = package:config(name)
+        end
+
+        if package:version():le("1.2.7") then
+            table.insert(configs, "--mo=" .. package:config("mo"))
         end
 
         import("package.tools.xmake").install(package, configs)
