@@ -87,6 +87,8 @@ package("arrow")
             if not package:config("shared") then
                 package:add("defines", "ARROW_STATIC")
                 package:add("links", "arrow_static", "arrow_dataset_static", "arrow_compute_stati", "arrow_acero_static", "arrow_bundled_dependencies")
+            else
+                package:add("links", "arrow_compute", "arrow_acero")
             end
         end
     end)
