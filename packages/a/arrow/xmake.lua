@@ -37,7 +37,7 @@ package("arrow")
     end
 
     add_deps("cmake >=3.25", "xsimd", "ninja")
-    add_deps("boost", {configs={date_time=true, regex=true, math=true}})
+    add_deps("boost", {configs={date_time=true, regex=true, math=true, cmake=false}})
 
     if is_plat("bsd") then
         add_syslinks("pthread", "execinfo")
