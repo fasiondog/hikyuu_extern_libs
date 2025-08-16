@@ -7,9 +7,6 @@ package("duckdb")
         add_urls("https://github.com/duckdb/duckdb/archive/refs/tags/$(version).tar.gz",
                 "https://github.com/duckdb/duckdb.git")
         add_versions("v1.3.2", "a10b388e516f6d9cc5d571fa55f14c936b73a2ca17400a76aae6c3f1cc2e20cb")
-        -- add_urls("https://github.com/duckdb/duckdb.git")
-        -- add_versions("v1.3.2", "0b83e5d2f68bc02dfefde74b846bd039f078affa")
-
         add_deps("cmake", "python")
     else
         add_urls("https://github.com/duckdb/duckdb/releases/download/$(version)/libduckdb-src.zip",
