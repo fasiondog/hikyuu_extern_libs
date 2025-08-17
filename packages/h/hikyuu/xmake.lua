@@ -108,6 +108,9 @@ package("hikyuu")
     end)
 
     on_install("windows", "linux", "macosx", function (package)
+        io.replace("xmake.lua", [[includes("./hikyuu_pywrap")]], [[]], {plain = true})
+        io.replace("xmake.lua", [[includes("./hikyuu_cpp/unit_test")]], [[]], {plain = true})
+        io.replace("xmake.lua", [[includes("./hikyuu_cpp/demo")]], [[]], {plain = true})
         local configs = {}
         if package:config("shared") then
             configs.kind = "shared"
