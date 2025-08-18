@@ -93,7 +93,7 @@ package("arrow")
         end
     end)
 
-    on_install("windows", "linux", "macosx", "bsd", function (package)
+    on_install("windows", "linux", "macosx", "bsd", "cross", function (package)
         local configs = {
             "-DARROW_BUILD_TESTS=OFF",
             "-DARROW_DEPENDENCY_SOURCE=SYSTEM",
@@ -117,7 +117,9 @@ package("arrow")
         end
 
         -- To fix arrow src/arrow/CMakeLists.txt:538, when CMAKE_SYSTEM_NAME set but CMAKE_SYSTEM_PROCESSOR is not causing error.
-        table.insert(configs, "-DCMAKE_SYSTEM_PROCESSOR=" .. (package:is_arch("x86_64") and "x86_64" or "x86"))
+        if not is_plat("cross") then
+            table.insert(configs, "-DCMAKE_SYSTEM_PROCESSOR=" .. (package:is_arch("x86_64") and "x86_64" or "x86"))
+        end
 
         os.cd("cpp")
         import("package.tools.cmake").install(package, configs)
