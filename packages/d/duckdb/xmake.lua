@@ -24,7 +24,7 @@ package("duckdb")
         add_versions("v0.10.0", "385e27aa67712813e4a07389465c4c5c45c431d97cddd35713b8a306d2a86f2d")
     end
 
-    on_install("macosx", "linux", function (package)
+    on_install("macosx", "linux", "cross", function (package)
         io.writefile("xmake.lua", [[
             add_rules("mode.debug", "mode.release")
             set_languages("c++17")
