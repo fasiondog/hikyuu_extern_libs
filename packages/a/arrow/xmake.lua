@@ -88,7 +88,7 @@ package("arrow")
                 package:add("defines", "ARROW_STATIC")
                 package:add("links", "arrow_static", "arrow_dataset_static", "arrow_compute_stati", "arrow_acero_static", "arrow_bundled_dependencies")
             else
-                package:add("links", "arrow_compute", "arrow_acero")
+                package:add("links", "arrow", "arrow_compute", "arrow_acero", "arrow_dataset")
             end
         end
     end)
