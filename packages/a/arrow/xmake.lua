@@ -58,8 +58,7 @@ package("arrow")
         if package:config("dataset") then
             package:add("links", "arrow_dataset")
         end
-        package:add("links", "arrow", "arrow_bundled_dependencies")
-
+        
         for name, dep in pairs(configdeps) do
             if package:config(name) then
                 package:add("deps", dep)
@@ -90,6 +89,8 @@ package("arrow")
             else
                 package:add("links", "arrow", "arrow_compute", "arrow_acero", "arrow_dataset")
             end
+        else
+            package:add("links", "arrow", "arrow_bundled_dependencies")
         end
     end)
 
