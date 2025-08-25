@@ -90,7 +90,7 @@ package("arrow")
                 package:add("links", "arrow", "arrow_compute", "arrow_acero", "arrow_dataset")
             end
         else
-            package:add("links", "arrow", "arrow_bundled_dependencies")
+            package:add("links", "arrow", "arrow_compute","arrow_acero", "arrow_bundled_dependencies")
         end
     end)
 
