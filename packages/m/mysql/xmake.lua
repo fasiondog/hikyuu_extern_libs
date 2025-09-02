@@ -21,8 +21,8 @@ package("mysql")
                     "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-arm64.zip")
             add_versions("8.0.40", "b7cd5ac0fba457abfeca57c53f39fe43166bead047afdb59f6a6f2258eeaec2c")
         else
-            add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-x86_64.zip",
-            "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx-x86_64.zip")
+            add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx_x86_64.zip",
+            "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/mysql-$(version)-macosx_x86_64.zip")
             add_versions("8.0.40", "7b8f141549038a6d303cdfe4198c182ae48ef66aa8a39755af427c2dac062fbf")
         end
     end
