@@ -6,11 +6,25 @@ package("hikyuu")
 
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).zip",
         "https://github.com/fasiondog/hikyuu.git")
+    add_versions("2.6.8", "18952523d371d8bebd7bb7a273649a8200026badcc4a92915e36fd72f39fccc6")
     add_versions("2.6.7", "9f3c7665107489f048139ff7e052c9fa164cb6ddd0ec54f165fcdf1389cfcc2f")
     add_versions("2.6.6", "45eaf9f41014fe5f8c0c61c2d81c71a3ea5e7e2ce617d449e30dfc5637025e4b")
     add_versions("2.6.5", "dc1cf6f744aa07c915cde3f3718470eb3d7b3dd15b476cad0f5d54efe554b2e0")
     add_versions("2.6.3", "9acae6a7d57c65e9787206398373fa5fddee0b65b5b3862aef07a25079d6ff16")
     add_versions("2.5.3", "636638d93fb11ff602b22f578568795934a76a8679418d81147a55ac09228f1d")
+
+    if is_plat("linux") then
+        if is_arch("x64") then
+            add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_linux_x64.zip", "f34608dd8c10fd63d27c887d021326d1e98261cef8076e6b2e85acaf4ab24d0b")
+        elseif is_arch("aarch64") then
+            add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_linux_aarch64.zip", "3fc51cfc6fa0622c4f7b0cf7f51cb7b3227b1f719c112a6ef27f1861889cb1dc")
+        end
+    elseif is_plat("windows") then
+        add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_windows_x64.zip", "2f571b37c10eb0defee7dfee95903cae870a9ec664338f4b132bfd723ad72897")
+    elseif is_plat("macosx") then
+        add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_macosx_arm64.zip", "8df70732e185f5aceb54ce4d1368bb37e00ee8452c802f09ed6cb2ea5c7d679f")
+    end
+
 
     add_configs("hdf5",  { description = "Enable hdf5 kdata engine.", default = true, type = "boolean"})
     add_configs("mysql",  { description = "Enable mysql kdata engine.", default = true, type = "boolean"})
@@ -135,6 +149,16 @@ package("hikyuu")
         table.insert(configs, "--http_client_zip=" .. (package:config("http_client_zip") and "true" or "false"))
 
         import("package.tools.xmake").install(package, configs)
+
+        local resourcedir = package:resourcedir("hku_plugin")
+        if resourcedir then
+            print(resourcedir)
+            if package:is_plat("windows") then
+                os.cp(path.join(resourcedir, "*"), package:installdir("bin") .. "/plugin/")
+            else
+                os.cp(path.join(resourcedir, "*"), package:installdir("lib") .. "/plugin/")
+            end
+        end
     end)
 
     on_test("windows", "linux", "macosx", function (package)
