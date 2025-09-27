@@ -7,11 +7,11 @@ package("hikyuu")
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).zip",
         "https://github.com/fasiondog/hikyuu.git")
     add_versions("2.6.8", "18952523d371d8bebd7bb7a273649a8200026badcc4a92915e36fd72f39fccc6")
-    -- add_versions("2.6.7", "9f3c7665107489f048139ff7e052c9fa164cb6ddd0ec54f165fcdf1389cfcc2f")
-    -- add_versions("2.6.6", "45eaf9f41014fe5f8c0c61c2d81c71a3ea5e7e2ce617d449e30dfc5637025e4b")
-    -- add_versions("2.6.5", "dc1cf6f744aa07c915cde3f3718470eb3d7b3dd15b476cad0f5d54efe554b2e0")
-    -- add_versions("2.6.3", "9acae6a7d57c65e9787206398373fa5fddee0b65b5b3862aef07a25079d6ff16")
-    -- add_versions("2.5.3", "636638d93fb11ff602b22f578568795934a76a8679418d81147a55ac09228f1d")
+    add_versions("2.6.7", "9f3c7665107489f048139ff7e052c9fa164cb6ddd0ec54f165fcdf1389cfcc2f")
+    add_versions("2.6.6", "45eaf9f41014fe5f8c0c61c2d81c71a3ea5e7e2ce617d449e30dfc5637025e4b")
+    add_versions("2.6.5", "dc1cf6f744aa07c915cde3f3718470eb3d7b3dd15b476cad0f5d54efe554b2e0")
+    add_versions("2.6.3", "9acae6a7d57c65e9787206398373fa5fddee0b65b5b3862aef07a25079d6ff16")
+    add_versions("2.5.3", "636638d93fb11ff602b22f578568795934a76a8679418d81147a55ac09228f1d")
 
     if is_plat("linux") then
         if is_arch("x64") then
@@ -142,9 +142,9 @@ package("hikyuu")
         table.insert(configs, "--low_precision=" .. (package:config("low_precision") and "true" or "false"))
         table.insert(configs, "--async_log=" .. (package:config("async_log") and "true" or "false"))
         table.insert(configs, "--ta_lib=" .. (package:config("ta_lib") and "true" or "false"))
-        -- if package:version():lt("2.6.7") then
-        --     table.insert(configs, "--mo=" .. (package:config("mo") and "true" or "false"))
-        -- end
+        if package:version():lt("2.6.7") then
+            table.insert(configs, "--mo=" .. (package:config("mo") and "true" or "false"))
+        end
         table.insert(configs, "--http_client_ssl=" .. (package:config("http_client_ssl") and "true" or "false"))
         table.insert(configs, "--http_client_zip=" .. (package:config("http_client_zip") and "true" or "false"))
 
