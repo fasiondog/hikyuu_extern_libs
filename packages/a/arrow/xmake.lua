@@ -6,10 +6,16 @@ package("arrow")
     set_description("Apache Arrow is a multi-language toolbox for accelerated data interchange and in-memory processing")
     set_license("Apache-2.0")
 
-    add_urls("https://github.com/apache/arrow/archive/refs/tags/apache-arrow-$(version).tar.gz",
-             "https://github.com/apache/arrow.git")
-    add_versions('21.0.0', 'e92401790fdba33bfb4b8aa522626d800ea7fda4b6f036aaf39849927d2cf88d')
-    add_versions('7.0.0', '57e13c62f27b710e1de54fd30faed612aefa22aa41fa2c0c3bacd204dd18a8f3')
+    if is_plat("windows") then
+        add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip",
+                 "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip")
+        add_versions("21.0.0", "5cc97a80ce9deba57eff4d475b310ca70c5a101e83f59a003462b091a9161b73")
+    else
+        add_urls("https://github.com/apache/arrow/archive/refs/tags/apache-arrow-$(version).tar.gz",
+                "https://github.com/apache/arrow.git")
+        add_versions('21.0.0', 'e92401790fdba33bfb4b8aa522626d800ea7fda4b6f036aaf39849927d2cf88d')
+        add_versions('7.0.0', '57e13c62f27b710e1de54fd30faed612aefa22aa41fa2c0c3bacd204dd18a8f3')
+    end
 
     add_configs("csv",      {description = "CSV reader module", default = true, type = "boolean"})
     add_configs("json",     {description = "JSON reader module", default = false, type = "boolean"})
@@ -47,7 +53,15 @@ package("arrow")
         add_syslinks("Ole32")
     end
 
-    on_load(function (package)
+    on_install("windows", function (package)
+        os.cp("include", package:installdir())
+        os.cp("lib", package:installdir())
+        if package:is_plat("windows") then
+            os.cp("bin", package:installdir())
+        end
+    end)    
+
+    on_load("linux", "macosx", "bsd", "cross",function (package)
         if package:config("plasma") then
             package:add("links", "plasma")
             package:add("deps", "gflags")
@@ -98,7 +112,7 @@ package("arrow")
         end
     end)
 
-    on_install("windows", "linux", "macosx", "bsd", "cross", function (package)
+    on_install("linux", "macosx", "bsd", "cross", function (package)
         local configs = {
             "-DARROW_BUILD_TESTS=OFF",
             "-DARROW_DEPENDENCY_SOURCE=SYSTEM",
