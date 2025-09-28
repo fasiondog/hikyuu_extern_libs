@@ -80,6 +80,7 @@ package("arrow")
         end
         if package:config("parquet") then
             package:add("deps", "thrift")
+            package:add("deps", "rapidjson")
         end
 
         if package:is_plat("windows") then
