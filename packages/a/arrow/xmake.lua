@@ -9,7 +9,7 @@ package("arrow")
     if is_plat("windows") then
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip")
-        add_versions("21.0.0", "5cc97a80ce9deba57eff4d475b310ca70c5a101e83f59a003462b091a9161b73")
+        add_versions("21.0.0", "d5faa108b3a7b47339d215e092a68ff9427377baa37b539a68244d4b0d94be95")
     else
         add_urls("https://github.com/apache/arrow/archive/refs/tags/apache-arrow-$(version).tar.gz",
                 "https://github.com/apache/arrow.git")
