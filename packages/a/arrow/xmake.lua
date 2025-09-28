@@ -81,6 +81,9 @@ package("arrow")
         if package:config("parquet") then
             package:add("deps", "thrift")
             package:add("deps", "rapidjson")
+            package:add("deps", "snappy")
+            package:add("deps", "zlib")
+            package:add("deps", "zstd")
         end
 
         if package:is_plat("windows") then
