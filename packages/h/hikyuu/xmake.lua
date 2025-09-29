@@ -16,7 +16,7 @@ package("hikyuu")
     if is_plat("linux") then
         if is_arch("x64") then
             add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_linux_x64.zip", "f34608dd8c10fd63d27c887d021326d1e98261cef8076e6b2e85acaf4ab24d0b")
-        elseif is_arch("aarch64") then
+        elseif is_arch("aarch64", "arm64") then
             add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_linux_aarch64.zip", "3fc51cfc6fa0622c4f7b0cf7f51cb7b3227b1f719c112a6ef27f1861889cb1dc")
         end
     elseif is_plat("windows") then
