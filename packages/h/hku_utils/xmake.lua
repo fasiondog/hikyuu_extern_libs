@@ -7,6 +7,7 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git",
              "https://github.com/fasiondog/hku_utils.git")
 
+    add_versions("1.2.9", "b23cc211dd57a1de22e708724a73ef1bc5131230a6fa2f15b45b501885b4619d")
     add_versions("1.2.8", "0503363057f2b5fe55162aa14ed997be679d38421457f981e22688e3a466001f")
     add_versions("1.2.7", "b2640f6e45904a695ac0e4372a4962fad2283791202eb17b1b1232a6e22ba4b6")
     add_versions("1.2.6", "ef0fe0530fdcbe9dc73cf708d1e28f5457cd5d65b46dc07cfe2251aa7e4cd96d")
