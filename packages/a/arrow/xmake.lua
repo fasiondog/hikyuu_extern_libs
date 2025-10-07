@@ -93,7 +93,7 @@ package("arrow")
             package:add("deps", "zstd")
         end
         if package:config("parquet") then
-            package:add("deps", "thrift")
+            package:add("deps", "thrift", {system = true})
             package:add("deps", "rapidjson")
             package:add("deps", "snappy")
             package:add("deps", "zlib")
