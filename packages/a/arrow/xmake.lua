@@ -44,7 +44,6 @@ package("arrow")
 
     add_deps("cmake >=3.25", "xsimd", "ninja")
     add_deps("boost", {configs={date_time=true, regex=true, math=true, cmake=false}})
-    add_deps("thrift", {configs = {shared = true}})
 
     if is_plat("bsd") then
         add_syslinks("pthread", "execinfo")
@@ -94,7 +93,7 @@ package("arrow")
             package:add("deps", "zstd")
         end
         if package:config("parquet") then
-            package:add("deps", "thrift", {configs = {shared = true}})
+            package:add("deps", "thrift")
             package:add("deps", "rapidjson")
             package:add("deps", "snappy")
             package:add("deps", "zlib")
