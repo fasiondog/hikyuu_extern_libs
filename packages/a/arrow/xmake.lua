@@ -102,10 +102,11 @@ package("arrow")
             package:add("deps", "zlib")
             package:add("deps", "zstd")
         end
-
+        if not package:config("shared") then
+            package:add("defines", "ARROW_STATIC", "ARROW_ACERO_STATIC", "ARROW_COMPUTE_STATIC", "ARROW_DS_STATIC")
+        end        
         if package:is_plat("windows") then
             if not package:config("shared") then
-                package:add("defines", "ARROW_STATIC")
                 package:add("links", "arrow_static", "arrow_dataset_static", "arrow_compute_stati", "arrow_acero_static", "arrow_bundled_dependencies")
             else
                 package:add("links", "arrow", "arrow_compute", "arrow_acero", "arrow_dataset")
