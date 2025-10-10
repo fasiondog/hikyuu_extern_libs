@@ -10,14 +10,14 @@ package("arrow")
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip")
         add_versions("21.0.0", "d5faa108b3a7b47339d215e092a68ff9427377baa37b539a68244d4b0d94be95")
-    elseif is_plat("macosx") and is_arch("arm64") then
-        add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip",
-                 "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip")
-        add_versions("21.0.0", "2c39bc83cc330f318757d72e1cf08ce82f49ba708d9ec31174c91744c12206fe")
-    elseif is_plat("linux", "cross") and is_arch("aarch64", "arm64.*") then
-        add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip",
-                 "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip")
-        add_versions("21.0.0", "9bea1c3c706683722b897262991e7772222980eb64cd0012ca6634013f1452c0")
+    -- elseif is_plat("macosx") and is_arch("arm64") then
+    --     add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip",
+    --              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip")
+    --     add_versions("21.0.0", "2c39bc83cc330f318757d72e1cf08ce82f49ba708d9ec31174c91744c12206fe")
+    -- elseif is_plat("linux", "cross") and is_arch("aarch64", "arm64.*") then
+    --     add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip",
+    --              "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip")
+    --     add_versions("21.0.0", "9bea1c3c706683722b897262991e7772222980eb64cd0012ca6634013f1452c0")
     else
         add_urls("https://github.com/apache/arrow/archive/refs/tags/apache-arrow-$(version).tar.gz",
                 "https://github.com/apache/arrow.git")
@@ -61,7 +61,7 @@ package("arrow")
         add_syslinks("Ole32")
     end
 
-    on_install("windows", "linux|arm64", "macosx|arm64", "cross", function (package)
+    on_install("windows", function (package)
         os.cp("include", package:installdir())
         os.cp("lib", package:installdir())
         if package:is_plat("windows") then
@@ -69,7 +69,7 @@ package("arrow")
         end
     end)
 
-    on_load("linux|x64_64", "bsd", "macosx|x86_64", function (package)
+    on_load("linux", "bsd", "macosx", "cross", function (package)
         if package:config("plasma") then
             package:add("links", "plasma")
             package:add("deps", "gflags")
@@ -124,7 +124,7 @@ package("arrow")
         end
     end)
 
-    on_install("linux|x86_64", "bsd", function (package)
+    on_install("linux", "bsd", "macosx", "cross", function (package)
         local configs = {
             "-DARROW_BUILD_TESTS=OFF",
             "-DARROW_DEPENDENCY_SOURCE=SYSTEM",
