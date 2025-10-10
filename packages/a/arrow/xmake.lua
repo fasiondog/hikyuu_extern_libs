@@ -17,7 +17,7 @@ package("arrow")
     elseif is_plat("linux", "cross") and is_arch("aarch64", "arm64.*") then
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip")
-        add_versions("21.0.0", "5359ebde6e004aee1965cd6c26b649cdd3029df365575efe644663d37295a806")
+        add_versions("21.0.0", "9bea1c3c706683722b897262991e7772222980eb64cd0012ca6634013f1452c0")
     else
         add_urls("https://github.com/apache/arrow/archive/refs/tags/apache-arrow-$(version).tar.gz",
                 "https://github.com/apache/arrow.git")
