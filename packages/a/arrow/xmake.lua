@@ -61,7 +61,7 @@ package("arrow")
         add_syslinks("Ole32")
     end
 
-    on_install("windows", "linux|aarch64|arm64", "macosx|arm64", "cross", function (package)
+    on_install("windows", "linux|arm64", "macosx|arm64", "cross", function (package)
         os.cp("include", package:installdir())
         os.cp("lib", package:installdir())
         if package:is_plat("windows") then
