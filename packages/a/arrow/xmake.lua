@@ -10,6 +10,10 @@ package("arrow")
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-win-x64.zip")
         add_versions("21.0.0", "d5faa108b3a7b47339d215e092a68ff9427377baa37b539a68244d4b0d94be95")
+    elseif is_plat("macosx") then
+        add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip",
+                 "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip")
+        add_versions("21.0.0", "2c39bc83cc330f318757d72e1cf08ce82f49ba708d9ec31174c91744c12206fe")               
     else
         add_urls("https://github.com/apache/arrow/archive/refs/tags/apache-arrow-$(version).tar.gz",
                 "https://github.com/apache/arrow.git")
@@ -53,7 +57,7 @@ package("arrow")
         add_syslinks("Ole32")
     end
 
-    on_install("windows", function (package)
+    on_install("windows", "macosx", function (package)
         os.cp("include", package:installdir())
         os.cp("lib", package:installdir())
         if package:is_plat("windows") then
@@ -61,7 +65,7 @@ package("arrow")
         end
     end)    
 
-    on_load("linux", "macosx", "bsd", "cross",function (package)
+    on_load("linux", "bsd", "cross", function (package)
         if package:config("plasma") then
             package:add("links", "plasma")
             package:add("deps", "gflags")
@@ -116,7 +120,7 @@ package("arrow")
         end
     end)
 
-    on_install("linux", "macosx", "bsd", "cross", function (package)
+    on_install("linux", "bsd", "cross", function (package)
         local configs = {
             "-DARROW_BUILD_TESTS=OFF",
             "-DARROW_DEPENDENCY_SOURCE=SYSTEM",
