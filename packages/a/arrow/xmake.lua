@@ -14,7 +14,7 @@ package("arrow")
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-macosx-arm64.zip")
         add_versions("21.0.0", "2c39bc83cc330f318757d72e1cf08ce82f49ba708d9ec31174c91744c12206fe")
-    elseif is_plat("linux", "cross") and is_arch("aarch64") then
+    elseif is_plat("linux", "cross") and is_arch("aarch64", "arm64.*") then
         add_urls("https://github.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip",
                  "https://gitee.com/fasiondog/hikyuu_extern_libs/releases/download/1.0.0/arrow-$(version)-linux-aarch64.zip")
         add_versions("21.0.0", "5359ebde6e004aee1965cd6c26b649cdd3029df365575efe644663d37295a806")
@@ -61,7 +61,7 @@ package("arrow")
         add_syslinks("Ole32")
     end
 
-    on_install("windows", "linux|aarch64", "macosx|arm64", "cross", function (package)
+    on_install("windows", "linux|aarch64|arm64", "macosx|arm64", "cross", function (package)
         os.cp("include", package:installdir())
         os.cp("lib", package:installdir())
         if package:is_plat("windows") then
