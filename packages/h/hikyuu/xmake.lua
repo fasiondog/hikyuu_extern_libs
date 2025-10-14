@@ -38,6 +38,7 @@ package("hikyuu")
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     add_configs("serialize",  { description = "serialize support", default = false, type = "boolean"})
     add_configs("ta_lib",  { description = "Enable ta-lib support.", default = true, type = "boolean"})
+    add_configs("arrow",  { description = "Enable arrow support.", default = false, type = "boolean"})
 
     -- 和 hku_utils 对齐
     add_configs("mo",  { description = "Enable the mo module.", default = false, type = "boolean"})
@@ -45,21 +46,40 @@ package("hikyuu")
     add_configs("http_client_zip",  { description = "Enable http client zip.", default = false, type = "boolean"})
 
     on_load("windows", "linux", "macosx", function (package)
-        package:add("deps", "boost", {
-            configs= {shared = package:is_plat("windows"),
+        local boost_config
+        if is_plat("windows") then
+            boost_config = {
+                shared = true,
                 runtimes = package:runtimes(),
                 multi = true,
                 date_time = true,
                 filesystem = false,
-                serialization = package:config("serialize"),
-                system = false,
+                serialization = get_config("serialize"),
+                system = true,
                 python = false,
                 cmake = false,
-            }})
+            }
+        else
+            boost_config = {
+                shared = true, -- is_plat("windows"),
+                runtimes = package:runtimes(),
+                multi = true,
+                date_time = true,
+                filesystem = false,
+                serialization = true, --get_config("serialize"),
+                system = true,
+                python = false,
+                thread = true,   -- parquet need
+                chrono = true,   -- parquet need
+                charconv = true, -- parquet need
+                cmake = false,
+            }
+        end        
+        package:add("deps", "boost", {configs = boost_config})
 
         package:add("deps", "fmt", {configs = {header_only = true}})
         package:add("deps", "spdlog", {configs = {header_only = true, fmt_external = true}})
-        -- package:add("deps", "flatbuffers", {configs={runtimes=package:runtimes()}})
+
         local flatbuffers_version = "v25.2.10"
         if package:is_plat("windows") then
             if is_mode("release") then
@@ -115,6 +135,11 @@ package("hikyuu")
              
         if package:config("ta_lib") then
             package:add("deps", "ta-lib")
+        end
+
+        if package:config("arrow") then
+            local arrow_config = {system = false, configs = {shared = false, parquet=true, shared_dep = false, brotli=true, zstd=true, bzip2=true, snappy=true, lz4=true, zlib=true}}            
+            package:add("deps", "arrow", arrow_config)
         end
 
         if package:is_plat("macosx") then
