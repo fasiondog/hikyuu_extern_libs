@@ -137,11 +137,6 @@ package("hikyuu")
             package:add("deps", "ta-lib")
         end
 
-        if package:config("arrow") then
-            local arrow_config = {system = false, configs = {shared = false, parquet=true, shared_dep = false, brotli=true, zstd=true, bzip2=true, snappy=true, lz4=true, zlib=true}}            
-            package:add("deps", "arrow", arrow_config)
-        end
-
         if package:is_plat("macosx") then
             package:add("frameworks", "CoreFoundation")
         end
