@@ -76,6 +76,9 @@ package("arrow")
         end
         if package:config("parquet") then
             package:add("links", "parquet")
+            if not package:config("shared") then
+                package:add("defines", "PARQUET_STATIC")
+            end
         end
         if package:config("dataset") then
             package:add("links", "arrow_dataset")
@@ -83,7 +86,7 @@ package("arrow")
         
         for name, dep in pairs(configdeps) do
             if package:config(name) then
-                package:add("deps", dep)
+                package:add("deps", dep, {configs={shared=package:config("shared_dep")}})
             end
         end
 
@@ -96,16 +99,6 @@ package("arrow")
         if package:config("orc") then
             package:add("deps", "protobuf-cpp")
             package:add("deps", "lz4")
-            package:add("deps", "snappy")
-            package:add("deps", "zlib")
-            package:add("deps", "zstd")
-        end
-        if package:config("parquet") then
-            if not package:config("shared") then
-                package:add("defines", "PARQUET_STATIC")
-            end
-            package:add("deps", "thrift")
-            package:add("deps", "rapidjson")
             package:add("deps", "snappy")
             package:add("deps", "zlib")
             package:add("deps", "zstd")
