@@ -168,7 +168,7 @@ package("hikyuu")
         table.insert(configs, "--low_precision=" .. (package:config("low_precision") and "true" or "false"))
         table.insert(configs, "--async_log=" .. (package:config("async_log") and "true" or "false"))
         table.insert(configs, "--ta_lib=" .. (package:config("ta_lib") and "true" or "false"))
-        if package:version():lt("2.6.7") then
+        if package:version() and package:version():lt("2.6.7") then
             table.insert(configs, "--mo=" .. (package:config("mo") and "true" or "false"))
         end
         table.insert(configs, "--http_client_ssl=" .. (package:config("http_client_ssl") and "true" or "false"))
