@@ -39,7 +39,7 @@ package("hku_utils")
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
-    for _, name in ipairs({"async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip"}) do
+    for _, name in ipairs({"arrow", "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = false, type = "boolean"})
     end
 
