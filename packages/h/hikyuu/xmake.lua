@@ -60,7 +60,7 @@ package("hikyuu")
         package:add("deps", "fmt", {configs = {header_only = true}})
         package:add("deps", "spdlog", {configs = {header_only = true, fmt_external = true}})
         -- package:add("deps", "flatbuffers", {configs={runtimes=package:runtimes()}})
-        local flatbuffers_version = "25.2.10"
+        local flatbuffers_version = "v25.2.10"
         if package:is_plat("windows") then
             if is_mode("release") then
                 package:add("deps", "flatbuffers", {system = false, version = flatbuffers_version, configs={runtimes="MD"}})
