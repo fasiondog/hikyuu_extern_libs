@@ -79,6 +79,7 @@ package("arrow")
             if not package:config("shared") then
                 package:add("defines", "PARQUET_STATIC")
             end
+            package:add("deps", "thrift")
         end
         if package:config("dataset") then
             package:add("links", "arrow_dataset")
