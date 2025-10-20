@@ -6,6 +6,7 @@ package("hikyuu")
 
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).zip",
         "https://github.com/fasiondog/hikyuu.git")
+    add_versions("2.6.9", "9c10c050254accea3fa3a0c0f4154920d694758dea118ad17e14f218ab7be50c")
     add_versions("2.6.8", "18952523d371d8bebd7bb7a273649a8200026badcc4a92915e36fd72f39fccc6")
     add_versions("2.6.7", "9f3c7665107489f048139ff7e052c9fa164cb6ddd0ec54f165fcdf1389cfcc2f")
     add_versions("2.6.6", "45eaf9f41014fe5f8c0c61c2d81c71a3ea5e7e2ce617d449e30dfc5637025e4b")
@@ -15,13 +16,17 @@ package("hikyuu")
 
     if is_plat("linux") then
         if is_arch("x64") then
+            add_resources("2.6.9", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.9_linux_x64.zip", "ebaf2e35f548b22215407df9f6f495421c26e0962bd1cbc071f0fdfc778b822a")
             add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_linux_x64.zip", "f34608dd8c10fd63d27c887d021326d1e98261cef8076e6b2e85acaf4ab24d0b")
         elseif is_arch("aarch64", "arm64") then
+            add_resources("2.6.9", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.9_linux_aarch64.zip", "22fec3570dc3794db3e7b57988dff3f986bca6671eaa494930f3acda6602b4c1")
             add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_linux_aarch64.zip", "3fc51cfc6fa0622c4f7b0cf7f51cb7b3227b1f719c112a6ef27f1861889cb1dc")
         end
     elseif is_plat("windows") then
+        add_resources("2.6.9", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.9_windows_x64.zip", "2b0c06ad3d69dadde5a9b4a4e12c02479b8fae5e0ed7f7f2eb923d000e26df19")
         add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_windows_x64.zip", "2f571b37c10eb0defee7dfee95903cae870a9ec664338f4b132bfd723ad72897")
     elseif is_plat("macosx") then
+        add_resources("2.6.9", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.9/hku_plugin_2.6.9_macosx_arm64.zip", "c7950b3fdaeb2438127582cef11868da2d3d5188a256ee94f25bb09103998764")
         add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_macosx_arm64.zip", "8df70732e185f5aceb54ce4d1368bb37e00ee8452c802f09ed6cb2ea5c7d679f")
     end
 
@@ -173,7 +178,7 @@ package("hikyuu")
 
         local resourcedir = package:resourcedir("hku_plugin")
         if resourcedir then
-            print(resourcedir)
+            print("resourcedir: " .. resourcedir)
             if package:is_plat("windows") then
                 os.cp(path.join(resourcedir, "*"), package:installdir("bin") .. "/plugin/")
             else
