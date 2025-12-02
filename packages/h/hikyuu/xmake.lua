@@ -163,7 +163,7 @@ package("hikyuu")
             configs.kind = "shared"
         end
 
-        table.insert(configs, "--serialize=" .. (package:config("serialize") and "true" or "false"))
+        table.insert(configs, "--serialize=" .. ((package:config("serialize") or package:is_plat("windows"))  and "true" or "false"))
         table.insert(configs, "--log_level=" .. package:config("log_level"))
         table.insert(configs, "--hdf5=" .. (package:config("hdf5") and "true" or "false"))
         table.insert(configs, "--mysql=" .. (package:config("mysql") and "true" or "false"))
