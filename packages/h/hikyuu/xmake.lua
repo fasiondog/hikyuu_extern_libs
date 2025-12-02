@@ -17,6 +17,7 @@ package("hikyuu")
             add_resources("2.7.1", "hku_plugin", "https://github.com/fasiondog/hikyuu_extern_libs/releases/download/plugin/hikyuu_plugin_2.7.0_linux_aarch64.zip", "e66adc07bf16e2f2ad57a0e2063d71c36b0c381161dee22759e462ce39df9230")
         end
     elseif is_plat("windows") then
+        add_resources("2.7.0", "hku_plugin", "https://github.com/fasiondog/hikyuu_extern_libs/releases/download/plugin/hikyuu_plugin_2.7.0_windows_amd64.zip", "8a3a682747823fc0dbb5bebdf43f85a554f11a92b28005bcc4a4581196e19fae")
         add_resources("2.6.9", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.9_windows_x64.zip", "2b0c06ad3d69dadde5a9b4a4e12c02479b8fae5e0ed7f7f2eb923d000e26df19")
         add_resources("2.6.8", "hku_plugin", "https://gitee.com/hikyuu-quant/hikyuu_plugin_download/releases/download/2.6.8/hku_plugin_2.6.8_windows_x64.zip", "2f571b37c10eb0defee7dfee95903cae870a9ec664338f4b132bfd723ad72897")
     elseif is_plat("macosx") then
