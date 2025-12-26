@@ -6,7 +6,7 @@ package("hikyuu")
 
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).tar.gz",
         "https://github.com/fasiondog/hikyuu.git")
-    add_versions("2.7.2", "2fa8acaf71093f42f1bbad74e629225dc381ab72072f14dc154ef40f1ba94bdb")
+    add_versions("2.7.2", "4cd15a7f0aad4c99655183fb5e287653f807df1da730aa4b47004b25b1d1ef5e")
 
     if is_plat("linux") then
         if is_arch("x64", "x86_64") then
