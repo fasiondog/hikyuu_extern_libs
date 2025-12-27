@@ -22,7 +22,7 @@ package("libtorch")
         end
     end)
 
-    on_install("windows", "linux", "macosx", function (package)
+    on_install("windows|x64", "linux|x86_64", "macosx|arm64", function (package)
         os.cp("include", package:installdir())
         os.cp("lib", package:installdir())
         os.cp("share", package:installdir())
