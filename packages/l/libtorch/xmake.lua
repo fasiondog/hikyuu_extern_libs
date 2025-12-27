@@ -24,8 +24,13 @@ package("libtorch")
 
     on_install("windows|x64", "linux|x86_64", "macosx|arm64", function (package)
         os.cp("include", package:installdir())
-        os.cp("lib", package:installdir())
         os.cp("share", package:installdir())
+        if package:is_plat("macosx") then
+            os.rm("lib/libtorch_python.dylib")
+            os.rm("lib/*.a")
+        end
+        os.cp("lib", package:installdir())
+        
         if package:is_plat("windows") then
             os.cp("bin", package:installdir())
         end
