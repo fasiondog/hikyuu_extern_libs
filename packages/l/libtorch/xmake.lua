@@ -28,10 +28,16 @@ package("libtorch")
         if package:is_plat("macosx") then
             os.rm("lib/libtorch_python.dylib")
             os.rm("lib/*.a")
+            os.cp("lib", package:installdir())
         end
-        os.cp("lib", package:installdir())
+        
+        if package:is_plat("linux") then
+            os.cp("lib", package:installdir())
+        end
         
         if package:is_plat("windows") then
+            os.cp("lib/*.lib", package:installdir("lib"))
+            os.cp("lib/*.dll", package:installdir("bin"))
             os.cp("bin", package:installdir())
         end
     end)
