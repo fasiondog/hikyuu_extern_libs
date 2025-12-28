@@ -36,8 +36,9 @@ package("libtorch")
         end
         
         if package:is_plat("windows") then
-            os.cp("lib/*.lib", package:installdir("lib"))
-            os.cp("lib/*.dll", package:installdir("bin"))
+            -- os.cp("lib/*.lib", package:installdir("lib"))
+            -- os.cp("lib/*.dll", package:installdir("bin"))
+            os.cp("lib", package:installdir())
             os.cp("bin", package:installdir())
         end
     end)
