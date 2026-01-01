@@ -4,8 +4,8 @@ package("clickhouse-cpp")
     set_description("C++ client for ClickHouse.")
     set_license("Apache-2.0 license ")
 
-    add_urls("https://github.com/ClickHouse/clickhouse-cpp.git")
-    add_versions("2025.06.24", "cae657a672ff09b715d7127b13eb25d63bea01d4")
+    add_urls("https://github.com/ClickHouse/clickhouse-cpp/archive/refs/tags/v$(version).tar.gz")
+    add_versions("2.6.0", "f694395ab49e7c2380297710761a40718278cefd86f4f692d3f8ce4293e1335f")
 
     add_deps("cmake", "zstd")
 
