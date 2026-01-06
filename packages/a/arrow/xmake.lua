@@ -50,7 +50,7 @@ package("arrow")
         add_configs(config, {description = "Enable " .. dep .. " support.", default = false, type = "boolean"})
     end
 
-    add_deps("cmake >=3.25", "xsimd", "ninja")
+    add_deps("cmake >=3.25", "xsimd", "ninja", "rapidjson")
     add_deps("boost", {configs={date_time=true, regex=true, math=true, cmake=false}})
 
     if is_plat("bsd") then
