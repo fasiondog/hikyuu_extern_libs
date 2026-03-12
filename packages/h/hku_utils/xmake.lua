@@ -91,7 +91,7 @@ package("hku_utils")
             configs[name] = package:config(name)
         end
 
-        if package:version():le("1.2.7") then
+        if package:version() and package:version():le("1.2.7") then
             table.insert(configs, "--mo=" .. package:config("mo"))
         end
 
