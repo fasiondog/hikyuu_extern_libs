@@ -11,7 +11,17 @@ package("hwloc")
         add_versions("2.13.0", "1514a5253f0a5c23bc006d3bdd30a6f6125c9a8dc9b5fa4984913d1fff45315d")
     end
 
-    on_install("linux", "macosx", function (package)
+    on_install("windows", function (package)
+        os.cp("include", package:installdir())
+        os.cp("lib", package:installdir())
+        if package:is_plat("windows") then
+            os.cp("bin", package:installdir())
+        end
+        os.rm(package:installdir("lib/*.a"))
+        os.mv(package:installdir("lib/*.dll"), package:installdir("bin"))
+    end)
+
+    on_install("linux", "macosx", "cross", function (package)
         if os.isfile("./configure") then
             local configs = {"--prefix=" .. package:installdir()}
             -- if package:config("shared") then
