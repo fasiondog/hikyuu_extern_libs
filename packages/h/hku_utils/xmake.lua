@@ -13,7 +13,6 @@ package("hku_utils")
     add_versions("1.3.0", "fc0f0e6e49e591bf9822d4176f6a4191872aee118201dc439ca82544023f385c")
     add_versions("1.2.9", "b23cc211dd57a1de22e708724a73ef1bc5131230a6fa2f15b45b501885b4619d")
 
-    add_configs("languages", {description = "Enable the C++ language standard", default = "c++17", values = {"c++17", "c++20"}})
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
