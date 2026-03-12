@@ -3,8 +3,13 @@ package("hwloc")
     set_homepage("https://www.open-mpi.org/projects/hwloc/")
     set_description("The Portable Hardware Locality (hwloc) software package provides a portable abstraction.")
 
-    add_urls("https://download.open-mpi.org/release/hwloc/v$(version)/hwloc-2.13.0.tar.gz")
-    add_versions("2.13", "1514a5253f0a5c23bc006d3bdd30a6f6125c9a8dc9b5fa4984913d1fff45315d")
+    if is_plat("windows") then
+        add_urls("https://download.open-mpi.org/release/hwloc/v2.13/hwloc-win64-build-$(version).zip")
+        add_versions("2.13.0", "44309472b04f4a27b3a1ed2d9b70280d773a87604470099a954f90a0c1659df4")
+    else
+        add_urls("https://download.open-mpi.org/release/hwloc/v2.13/hwloc-$(version).tar.gz")
+        add_versions("2.13.0", "1514a5253f0a5c23bc006d3bdd30a6f6125c9a8dc9b5fa4984913d1fff45315d")
+    end
 
     on_install("linux", "macosx", function (package)
         if os.isfile("./configure") then
@@ -16,8 +21,9 @@ package("hwloc")
             --     table.insert(configs, "--enable-static")
             --     table.insert(configs, "--disable-shared")
             -- end
-            table.insert(configs, "--enable-static")
-            table.insert(configs, "--disable-shared")            
+            -- 直接使用动态库
+            table.insert(configs, "--enable-shared")
+            table.insert(configs, "--disable-static")        
             os.exec("./configure " .. table.concat(configs, " "), {curdir = package:sourcedir()})
         end        
         import("package.tools.make").make(package, {})
