@@ -7,6 +7,7 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git",
              "https://github.com/fasiondog/hku_utils.git")
 
+    add_versions("1.3.4", "79dcc86ab57bd8b300f070d5ee99b8e13a67d7e39e1e2caa129a663dd6c36652")
     add_versions("1.3.3", "7b618425c18e560d673dd0bae603a05cc453e00a05aa5453f1bccd718f950b5f")
     add_versions("1.3.2", "67f2579fbee2b4082e1c7bbf5544d1a2ccd41fa8ecda152b42c283505be87ce8")
     add_versions("1.3.1", "a88d7f77f29bffbf7c3003cc69c8080f64b54a982a62f18870f72616901bc341")
@@ -17,7 +18,7 @@ package("hku_utils")
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
-    for _, name in ipairs({"arrow", "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip"}) do
+    for _, name in ipairs({"arrow", "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip", "duckdb"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = false, type = "boolean"})
     end
 
@@ -90,8 +91,13 @@ package("hku_utils")
             configs[name] = package:config(name)
         end
 
-        if package:version() and package:version():le("1.2.7") then
-            table.insert(configs, "--mo=" .. package:config("mo"))
+        if package:version() then
+            if package:version():le("1.2.7") then
+                table.insert(configs, "--mo=" .. package:config("mo"))
+            end
+            if package:version():ge("1.3.5") then
+                table.insert(configs, "--duckdb=" .. package:config("duckdb"))
+            end
         end
 
         import("package.tools.xmake").install(package, configs)
