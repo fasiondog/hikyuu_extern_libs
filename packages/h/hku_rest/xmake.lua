@@ -77,6 +77,6 @@ package("hku_rest")
                 HttpServer server("http://*", 8080);
             }
             ]]},
-            {configs = {languages = "c++17"}
+            {configs = {languages = "c++20"}
         }))
     end) 
