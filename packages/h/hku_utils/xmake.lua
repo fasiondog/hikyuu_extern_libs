@@ -7,15 +7,10 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git",
              "https://github.com/fasiondog/hku_utils.git")
 
-    add_versions("1.3.4", "79dcc86ab57bd8b300f070d5ee99b8e13a67d7e39e1e2caa129a663dd6c36652")
-    add_versions("1.3.3", "7b618425c18e560d673dd0bae603a05cc453e00a05aa5453f1bccd718f950b5f")
-    add_versions("1.3.2", "67f2579fbee2b4082e1c7bbf5544d1a2ccd41fa8ecda152b42c283505be87ce8")
-    add_versions("1.3.1", "a88d7f77f29bffbf7c3003cc69c8080f64b54a982a62f18870f72616901bc341")
-    add_versions("1.3.0", "fc0f0e6e49e591bf9822d4176f6a4191872aee118201dc439ca82544023f385c")
-    add_versions("1.2.9", "b23cc211dd57a1de22e708724a73ef1bc5131230a6fa2f15b45b501885b4619d")
+    add_versions("1.3.5", "38d39a6c4fe5cf94155d2a9657b42296b2cbb6f4c70252297b5edda0ca36e819")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
-    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
+    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "http_client_asio", "node"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
     for _, name in ipairs({"arrow", "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip", "duckdb"}) do
@@ -32,9 +27,12 @@ package("hku_utils")
                 serialization = false,
                 system = false,
                 python = false,
+                asio = true,
                 cmake = false,
             }})
 
+        package:add("defines", "BOOST_ASIO_HAS_CO_AWAIT=1", "BOOST_ASIO_HAS_CXX20_COROUTINES=1", "DBOOST_ASIO_DISABLE_DEPRECATED=1")
+        
         package:add("deps", "yas")
         package:add("deps", "fmt", {configs={header_only = true}})
         package:add("deps", "spdlog", {configs={header_only = true, fmt_external = true}})
@@ -60,9 +58,16 @@ package("hku_utils")
             else
                 package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl")}})
             end
-            if package:config("http_client_zip") then
-                package:add("deps", "gzip-hpp")
+        end
+
+        if package:config("http_client_asio") then
+            if package:config("http_client_ssl") then
+                package:add("deps", "openssl3", {configs = {shared = true}})
             end
+        end
+
+        if package:config("http_client_zip") then
+            package:add("deps", "gzip-hpp")
         end
 
         package:add("defines", "SPDLOG_ACTIVE_LEVEL=" .. package:config("log_level"))
@@ -85,19 +90,11 @@ package("hku_utils")
         end
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
-        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node",  
+        for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", 
+                               "http_client_asio", "node",  
                                "async_log", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
-                               "http_client_ssl", "http_client_zip"}) do
+                               "http_client_ssl", "http_client_zip", "duckdb"}) do
             configs[name] = package:config(name)
-        end
-
-        if package:version() then
-            if package:version():le("1.2.7") then
-                table.insert(configs, "--mo=" .. package:config("mo"))
-            end
-            if package:version():ge("1.3.5") then
-                table.insert(configs, "--duckdb=" .. package:config("duckdb"))
-            end
         end
 
         import("package.tools.xmake").install(package, configs)
