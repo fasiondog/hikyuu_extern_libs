@@ -27,6 +27,9 @@ package("async_mqtt")
         if package:config("log") then
             package:add("defines", "ASYNC_MQTT_USE_LOG")
         end
+        
+        -- 添加 include/async_mqtt 到 include 路径
+        package:add("includedirs", package:installdir("include/async_mqtt"))
     end)
 
     if is_plat("windows") then
