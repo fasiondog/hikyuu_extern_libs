@@ -7,6 +7,7 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git",
              "https://github.com/fasiondog/hku_utils.git")
 
+    add_versions("1.3.8", "2a33b1c1262138c57fc55ecddb5fe5d179b29a9aebb60e5ba0bd9e6f6dc46fe9")
     add_versions("1.3.7", "478d4c5f44e159daf3c000f4db25161a732f03ac48e4a55e5d8aebc6a7ac37ef")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
