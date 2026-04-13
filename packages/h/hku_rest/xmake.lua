@@ -30,7 +30,7 @@ package("hku_rest")
     end
 
     on_load(function(package)
-        package:add("deps", "openssl3")
+        package:add("deps", "openssl3", "tl_expected")
         if package:config("use_hikyuu") then
             package:add("deps", "hikyuu", {
                 configs= {shared = true, 
