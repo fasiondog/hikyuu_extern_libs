@@ -6,26 +6,14 @@ package("hku_rest")
     add_urls("https://github.com/fasiondog/hku_rest/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_rest.git")    
     
-    add_versions("1.1.6", "4b7d9be66d21056f1e686402002e2a86b83f9dca2b96c04d386e896c56626075")
-    add_versions("1.1.3", "bc557215c58900ffd42f51fae22f9b7e180ce5f13458e2abc717bd0042d800b2")
-    add_versions("1.1.2", "6e660eb344cfafa270b939161a1750b77eb2236652bf82ec115d508e37d5bcd2")
-    add_versions("1.1.1", "e25ecb106e73064817dbcc0fcbdedde329f60130097f1f72565f14d88dfb479b")
-    add_versions("1.1.0", "5246141e0ccabc322861f01b3d2963b2267d54e7834602314b2f37a20cebb4b4")
-    add_versions("1.0.9", "6a28a486e716236a1c8eefec5663744a195f08e646be0bab787b6e304772db1a")
-    add_versions("1.0.8", "168e4ded1046e31a8bd5195c3eebdf2bf11deeb1528f73671983a473ebd0b80e")
-    add_versions("1.0.7", "29dbc80548b8c0d91494423fa72d10ba4bf4f147ebf4b91de8978741636e8196")
-    add_versions("1.0.6", "2a3a42f5cea07c8601480bb8ea50cabdfa6cbd966d2260639bd92e5e6264dd3c")
-    add_versions("1.0.5", "08a77dc0a494bff93ce797f6cd562d3b1ff5d73701db1bfe50ae9a6739f114ff")
-    add_versions("1.0.3", "5f439fb1fe51fdce212cc21cccfc0b003a7aa1a2b5fffd7901b51277f9b7070e")
-    add_versions("1.0.2", "4222b7a36a47005c5d951e84e650f8c629ba200b0d87487b3ae83ae0e374a6e0")
-    add_versions("1.0.1", "caa916125d28e7044c2ea513bdf31af7c39677fef7d296c5094abb2f4909c046")
-    add_versions("1.0.0", "1fd1f85a8eabf72bdad0dff11560e6da07d3b3cd61151469faf8ee4d83dd28ae")
+    add_versions("1.2.0", "f81d8b2a8e047a4d638ae5d1da1a6aca56e7e39fe80af2f270b9375b5e18689e")
+    add_versions("1.1.2", "6e660eb344cfafa270b939161a1750b77eb2236652bf82ec115d508e37d5bcd2") --nng
 
     add_configs("use_hikyuu", {description = "Use the hikyuu.", default = false, type = "boolean"})
     for _, name in ipairs({"mysql"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
-    for _, name in ipairs({"sqlite", "stacktrace", "async_log"}) do
+    for _, name in ipairs({"sqlite", "stacktrace", "async_log", "mqtt"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = false, type = "boolean"})
     end
 
