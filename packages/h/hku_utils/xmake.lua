@@ -7,11 +7,12 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git",
              "https://github.com/fasiondog/hku_utils.git")
 
+    add_versions("1.3.9", "811dc5c17391b137b0d6717086a07f48158e53bdf712766f92ee1b95b8b70051")
     add_versions("1.3.8", "2a33b1c1262138c57fc55ecddb5fe5d179b29a9aebb60e5ba0bd9e6f6dc46fe9")
     add_versions("1.3.7", "478d4c5f44e159daf3c000f4db25161a732f03ac48e4a55e5d8aebc6a7ac37ef")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
-    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "http_client_asio", "node"}) do
+    for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
         add_configs(name, {description = "Enable the " .. name .. " module.", default = true, type = "boolean"})
     end
     for _, name in ipairs({"arrow", "async_log", "mo", "mysql", "sqlcipher", "sql_trace", "stacktrace", "http_client_ssl", "http_client_zip", "duckdb"}) do
@@ -61,15 +62,15 @@ package("hku_utils")
             end
         end
 
-        if package:config("http_client_asio") then
+        if package:config("http_client") then
             if package:config("http_client_ssl") then
                 package:add("deps", "openssl3", {configs = {shared = true}})
             end
+            if package:config("http_client_zip") then
+                package:add("deps", "gzip-hpp")
+            end
         end
 
-        if package:config("http_client_zip") then
-            package:add("deps", "gzip-hpp")
-        end
 
         package:add("defines", "SPDLOG_ACTIVE_LEVEL=" .. package:config("log_level"))
 
@@ -92,8 +93,7 @@ package("hku_utils")
         table.insert(configs, "--log_level=" .. package:config("log_level"))
 
         for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", 
-                               "http_client_asio", "node",  
-                               "async_log", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
+                               "node", "async_log", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
                                "http_client_ssl", "http_client_zip", "duckdb"}) do
             configs[name] = package:config(name)
         end
