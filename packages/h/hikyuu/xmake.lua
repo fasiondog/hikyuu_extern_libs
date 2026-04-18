@@ -65,6 +65,7 @@ package("hikyuu")
                     serialization = true,
                     system = true,
                     python = false,
+                    asio = true,
                     cmake = false,
             }}
         else
@@ -91,6 +92,7 @@ package("hikyuu")
                     regex = true,
                     random = true,
                     thread = true,
+                    asio = true,
                     cmake = true,
             }}
         end   
@@ -140,6 +142,9 @@ package("hikyuu")
         end
         if package:config("http_client_zip") then
             package:add("deps", "gzip-hpp")
+        end
+        if package:config("http_client_ssl") then
+            package:add("deps", "openssl3")
         end
 
         package:add("defines", "SPDLOG_ACTIVE_LEVEL=" .. package:config("log_level"))
