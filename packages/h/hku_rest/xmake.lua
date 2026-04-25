@@ -43,6 +43,55 @@ package("hku_rest")
         if package:is_plat("windows") and package:config("shared") then
             package:add("defines", "HKU_HTTPD_API=__declspec(dllimport)")
         end
+
+       local boost_config
+        if package:is_plat("windows") then
+            boost_config = {
+                system = false,
+                debug = package:is_mode("debug"),
+                configs = {
+                    shared = true,
+                    runtimes = get_config("runtimes"),
+                    multi = true,
+                    date_time = true,
+                    filesystem = false,
+                    property_tree= true, --mqtt need
+                    serialization = true,
+                    system = true,
+                    python = false,
+                    asio = true,
+                    beast = true,
+                    cmake = false,
+            }}
+        else
+            boost_config = {
+                system = false,
+                configs = {
+                    shared = true, -- is_plat("windows"),
+                    runtimes = get_config("runtimes"),
+                    multi = true,
+                    date_time = true,
+                    filesystem = false,
+                    serialization = true, --get_config("serialize"),
+                    system = true,
+                    python = false,
+                    -- 以下为兼容 arrow 等其他组件
+                    thread = true,   -- parquet need
+                    chrono = true,   -- parquet need
+                    charconv = true, -- parquet need
+                    atomic = true,
+                    container = true,
+                    math = true,
+                    regex = true,
+                    random = true,
+                    thread = true,
+                    asio = true,  
+                    beast = true,
+                    cmake = true,
+            }}
+        end
+        package:add("deps", "boost", {configs = boost_config})
+        package:add("requireconfs", "**.boost", {override = true, configs = boost_config})
     end)
 
     on_install(function (package)
