@@ -41,7 +41,7 @@ package("hku_utils")
                 cmake = true,
             }})
 
-        package:add("defines", "BOOST_ASIO_HAS_CO_AWAIT=1", "BOOST_ASIO_HAS_CXX20_COROUTINES=1", "DBOOST_ASIO_DISABLE_DEPRECATED=1")
+        package:add("defines", "DBOOST_ASIO_DISABLE_DEPRECATED=1")
         
         package:add("deps", "yas", "tl_expected")
         package:add("deps", "fmt", {configs={header_only = true}})
