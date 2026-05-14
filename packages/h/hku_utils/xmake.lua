@@ -39,7 +39,7 @@ package("hku_utils")
                 openssl = package:config("mysql"),
                 mysql = package:config("mysql"),
                 charconv = package:config("mysql"),  -- boost.mysql 需要 charconv                
-                cmake = true,
+                cmake = false,
             }})
 
         package:add("defines", "DBOOST_ASIO_DISABLE_DEPRECATED=1")
