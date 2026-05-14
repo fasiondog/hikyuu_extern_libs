@@ -106,7 +106,8 @@ package("hku_utils")
 
         for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", 
                                "node", "async_log", "mysql", "sqlcipher", "sql_trace", "stacktrace", 
-                               "http_client_ssl", "http_client_zip", "duckdb"}) do
+                               "http_client_ssl", "http_client_zip", "duckdb", 
+                               "disable_libmysqlclient"}) do
             configs[name] = package:config(name)
         end
 
