@@ -34,10 +34,11 @@ package("hku_utils")
                 system = true,
                 python = false,
                 asio = true,
-                cmake = true,
+                beast = true,
                 openssl = package:config("mysql"),
                 mysql = package:config("mysql"),
                 charconv = package:config("mysql"),  -- boost.mysql 需要 charconv                
+                cmake = true,
             }})
 
         package:add("defines", "BOOST_ASIO_HAS_CO_AWAIT=1", "BOOST_ASIO_HAS_CXX20_COROUTINES=1", "DBOOST_ASIO_DISABLE_DEPRECATED=1")
