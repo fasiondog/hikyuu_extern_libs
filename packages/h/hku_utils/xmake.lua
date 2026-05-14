@@ -24,6 +24,7 @@ package("hku_utils")
 
     on_load(function(package)
         package:add("deps", "boost", {
+            system = false,
             configs= {
                 shared = package:is_plat("windows"),
                 runtimes = package:runtimes(),
