@@ -23,6 +23,7 @@ package("hku_utils")
     add_configs("disable_libmysqlclient", {description = "Disable use libmysqlclient", default = false, type = "boolean"})
 
     on_load(function(package)
+        package:add("deps", "openssl3", {system = false, configs = {shared = true}})
         package:add("deps", "boost", {
             system = false,
             configs= {
@@ -54,7 +55,6 @@ package("hku_utils")
             elseif not package:config("disable_libmysqlclient") then
                 package:add("deps", "mysql")
             end
-            package:add("deps", "openssl3", {system = false, configs = {shared = true}})
         end
 
         if package:config("sqlcipher") then
