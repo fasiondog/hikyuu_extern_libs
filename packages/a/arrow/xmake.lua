@@ -119,6 +119,10 @@ package("arrow")
     end)
 
     on_install("linux", "bsd", "macosx", "cross", function (package)
+        if is_plat("macosx") then
+            io.replace("cpp/cmake_modules/BuildUtils.cmake", 'if(NOT "${LIBTOOL_V_OUTPUT}" MATCHES ".*cctools-([0-9.]+).*")', 'if(NOT "${LIBTOOL_V_OUTPUT}" MATCHES ".*cctools*.*")', {plain = true})
+
+        end
         local configs = {
             "-DARROW_BUILD_TESTS=OFF",
             "-DARROW_DEPENDENCY_SOURCE=SYSTEM",
