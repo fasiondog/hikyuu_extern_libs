@@ -54,6 +54,7 @@ package("hku_utils")
             elseif not package:config("disable_libmysqlclient") then
                 package:add("deps", "mysql")
             end
+            package:add("deps", "openssl3", {system = false, configs = {shared = true}})
         end
 
         if package:config("sqlcipher") then
@@ -77,7 +78,7 @@ package("hku_utils")
 
         if package:config("http_client") then
             if package:config("http_client_ssl") then
-                package:add("deps", "openssl3", {configs = {shared = true}})
+                package:add("deps", "openssl3", {system = false, configs = {shared = true}})
             end
             if package:config("http_client_zip") then
                 package:add("deps", "gzip-hpp")
