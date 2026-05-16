@@ -6,10 +6,11 @@ package("hku_rest")
     add_urls("https://github.com/fasiondog/hku_rest/archive/refs/tags/$(version).tar.gz",
              "https://github.com/fasiondog/hku_rest.git")    
     
+    add_versions("1.2.3", "24a9e508421424406882f797f2768fcdc3892e0e419cb5795f44383a91edb41d")
     add_versions("1.2.2", "ed0b061f5505f5252f77e9dd3b00fe57b10dd4687b5f5851fcbe95551d06aabb")
     add_versions("1.2.1", "9dc72a11083792276ac929832c469fe1021b4b642478ae7ea493bd7813458bb5")
     add_versions("1.2.0", "f81d8b2a8e047a4d638ae5d1da1a6aca56e7e39fe80af2f270b9375b5e18689e")
-    add_versions("1.1.2", "6e660eb344cfafa270b939161a1750b77eb2236652bf82ec115d508e37d5bcd2") --nng
+    add_versions("1.1.2", "6e660eb344cfafa270b939161a1750b77eb2236652bf82ec115d508e37d5bcd2")
 
     add_configs("use_hikyuu", {description = "Use the hikyuu.", default = false, type = "boolean"})
     for _, name in ipairs({"mysql"}) do
