@@ -7,6 +7,7 @@ package("xsimd")
     add_urls("https://github.com/xtensor-stack/xsimd/archive/refs/tags/$(version).tar.gz",
              "https://github.com/xtensor-stack/xsimd.git")
 
+    add_versions("14.2.0", "21e841ab684b05331e81e7f782431753a029ef7b7d9d6d3ddab837e7782a40ee")
     add_versions("13.0.0", "8bdbbad0c3e7afa38d88d0d484d70a1671a1d8aefff03f4223ab2eb6a41110a3")
     add_versions("12.1.1", "73f94a051278ef3da4533b691d31244d12074d5d71107473a9fd8d7be15f0110")
     add_versions("7.6.0", "eaf47f1a316ef6c3287b266161eeafc5aa61226ce5ac6c13502546435b790252")
@@ -16,11 +17,11 @@ package("xsimd")
     add_versions("10.0.0", "73f818368b3a4dad92fab1b2933d93694241bd2365a6181747b2df1768f6afdd")
     add_versions("11.0.0", "50c31c319c8b36c8946eb954c7cca2e2ece86bf8a66a7ebf321b24cd273e7c47")
 
-    if is_plat("windows") then
-        add_cxxflags("/arch:AVX2")
-    else
-        add_cxxflags("-march=native")
-    end
+    -- if is_plat("windows") then
+    --     add_cxxflags("/arch:AVX2")
+    -- else
+    --     add_cxxflags("-march=native")
+    -- end
 
     add_deps("cmake")
     on_install("windows", "macosx", "linux", "mingw@windows", "cross", function (package)
