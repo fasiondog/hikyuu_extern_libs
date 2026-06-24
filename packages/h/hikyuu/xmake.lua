@@ -7,9 +7,9 @@ package("hikyuu")
     add_urls("https://github.com/fasiondog/hikyuu/archive/refs/tags/$(version).tar.gz",
         "https://github.com/fasiondog/hikyuu.git")
     add_versions("2.8.0", "ecca7940f9cf5b09363f9fd463597b150d50e8675eb3eeddb97666c9bb514094")
-    add_versions("2.7.9", "507127fdd010b5a455e811916afc7eb0670ca106f242f0453001f4426fad5598")        
-    add_versions("2.7.8", "b9c3d75889e0f1c64a803844f10d314373d411cf8d2278f76daf3adf7a474b52")
-    add_versions("2.7.7", "65f4bdcf8c4cb3c232b22ecf6207a0f91607762516dab2bed90bbc81e913b2e5")
+    -- add_versions("2.7.9", "507127fdd010b5a455e811916afc7eb0670ca106f242f0453001f4426fad5598")        
+    -- add_versions("2.7.8", "b9c3d75889e0f1c64a803844f10d314373d411cf8d2278f76daf3adf7a474b52")
+    -- add_versions("2.7.7", "65f4bdcf8c4cb3c232b22ecf6207a0f91607762516dab2bed90bbc81e913b2e5")
 
     if is_plat("linux") then
         if is_arch("x64", "x86_64") then
@@ -181,10 +181,7 @@ package("hikyuu")
         table.insert(configs, "--ta_lib=" .. (package:config("ta_lib") and "true" or "false"))
         table.insert(configs, "--http_client_ssl=" .. (package:config("http_client_ssl") and "true" or "false"))
         table.insert(configs, "--http_client_zip=" .. (package:config("http_client_zip") and "true" or "false"))
-
-        if package:version():ge("2.8.0") then
-            table.insert(configs, "--local=" .. (package:config("local") and "true" or "false"))
-        end
+        table.insert(configs, "--local=" .. (package:config("local") and "true" or "false"))
 
         import("package.tools.xmake").install(package, configs)
 
