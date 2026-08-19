@@ -8,10 +8,6 @@ package("hku_utils")
              "https://gitcode.com/KongDong/hku_utils.git")
 
     add_versions("1.5.0", "7a08bb8ab5cc68c4bc20d4550ac18f34042682b3540635543b4dab87ac555e63")
-    add_versions("1.4.9", "6ceb07d6795fe2937e849ec1e82024664a02b68db5824ae8f4095b26ac19e706")
-    add_versions("1.3.9", "811dc5c17391b137b0d6717086a07f48158e53bdf712766f92ee1b95b8b70051")
-    add_versions("1.3.8", "2a33b1c1262138c57fc55ecddb5fe5d179b29a9aebb60e5ba0bd9e6f6dc46fe9")
-    add_versions("1.3.7", "478d4c5f44e159daf3c000f4db25161a732f03ac48e4a55e5d8aebc6a7ac37ef")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
@@ -71,9 +67,9 @@ package("hku_utils")
         if package:config("http_client") or package:config("node") then
             package:add("deps", "nlohmann_json")
             if package:config("shared") then
-                package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl"), cxflags = "-fPIC"}})
+                package:add("deps", "nng", {configs = {cxflags = "-fPIC"}})
             else
-                package:add("deps", "nng", {configs = {NNG_ENABLE_TLS = package:config("http_client_ssl")}})
+                package:add("deps", "nng")
             end
         end
 
