@@ -7,7 +7,7 @@ package("hku_utils")
              "https://github.com/fasiondog/hku_utils.git",
              "https://gitcode.com/KongDong/hku_utils.git")
 
-    add_versions("1.5.0", "7a08bb8ab5cc68c4bc20d4550ac18f34042682b3540635543b4dab87ac555e63")
+    add_versions("1.5.1", "2a96b4512f64205905c1997d789cb9fa7429b11e6587c2ed7dec199a1a277af6")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
     for _, name in ipairs({"datetime", "spend_time", "sqlite", "ini_parser", "http_client", "node"}) do
@@ -65,12 +65,7 @@ package("hku_utils")
         end
 
         if package:config("http_client") or package:config("node") then
-            package:add("deps", "nlohmann_json")
-            if package:config("shared") then
-                package:add("deps", "nng", {configs = {cxflags = "-fPIC"}})
-            else
-                package:add("deps", "nng")
-            end
+            package:add("deps", "nlohmann_json", "nng")
         end
 
         if package:config("http_client") then
