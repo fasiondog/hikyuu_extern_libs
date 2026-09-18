@@ -7,6 +7,7 @@ package("hku_utils")
              "https://github.com/fasiondog/hku_utils.git",
              "https://gitcode.com/KongDong/hku_utils.git")
 
+    add_versions("1.5.2", "da20cc0609e4f5b74aeafcdf7cd53f6a8a0e0bc2f1c51f5bb0db4d46584267e3")
     add_versions("1.5.1", "2a96b4512f64205905c1997d789cb9fa7429b11e6587c2ed7dec199a1a277af6")
 
     add_configs("log_level",  { description="打印日志级别", default = 2, values = {0, 1, 2, 3, 4, 5, 6}})
@@ -21,7 +22,7 @@ package("hku_utils")
 
     on_load(function(package)
         package:add("deps", "openssl3", {system = false, configs = {shared = true}})
-        package:add("deps", "boost", {
+        package:add("deps", "boost >=1.92", {
             system = false,
             configs= {
                 shared = package:is_plat("windows"),
@@ -32,8 +33,6 @@ package("hku_utils")
                 serialization = false,
                 system = true,
                 python = false,
-                asio = true,
-                beast = true,
                 openssl = package:config("mysql"),
                 mysql = package:config("mysql"),
                 charconv = package:config("mysql"),  -- boost.mysql 需要 charconv                
