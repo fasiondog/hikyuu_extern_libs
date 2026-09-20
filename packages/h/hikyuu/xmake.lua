@@ -57,6 +57,7 @@ package("hikyuu")
 
     on_load("windows", "linux", "macosx", function (package)
         local boost_config = {
+                version = ">=1.92",
                 system = false,
                 configs = {
                     shared = true, -- is_plat("windows"),
@@ -79,7 +80,7 @@ package("hikyuu")
                     regex = true,
                     random = true,
                     thread = true,
-                    asio = true,
+                    -- asio = true,
                     openssl = has_config("mysql"),
                     mysql = has_config("mysql"),            
                     cmake = false,
